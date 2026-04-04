@@ -1,0 +1,528 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" lang="uk">
+<title>Дим і Гори | Натуральне копчення</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+:root {
+--bg-color: #19120e;
+--card-bg: #231913;
+--accent: #D69023;
+--text-main: #E8E0D2;
+--text-muted: #A89B8D;
+--border: rgba(255, 255, 255, 0.1);
+--font-serif: "Playfair Display", serif;
+--font-sans: "Inter", sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+background-color: var(--bg-color);
+color: var(--text-main);
+font-family: var(--font-sans);
+line-height: 1.6;
+overflow-x: hidden;
+}
+
+/* ДИМ ПОДЛІМ */
+.smoke-overlay {
+position: fixed;
+top: -50%;
+left: -50%;
+width: 200%;
+height: 200%;
+z-index: 9999;
+pointer-events: none;
+animation: smokeMovement 20s linear infinite;
+background-image: url('https://raw.githubusercontent.com/nicholasgasior/smoke-overlay/master/smoke.png');
+background-size: cover; /* Тут можна поставити посилання на свій gif */
+opacity: 0.04;
+filter: hue-rotate(0deg) brightness(1.2);
+}
+
+@keyframes smokeMovement {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+
+.container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 20px;
+position: relative;
+z-index: 1;
+}
+
+h1, h2, h3, h4 {
+font-family: var(--font-serif);
+color: var(--text-main);
+font-weight: 700;
+}
+
+h2 {
+font-size: 2.5rem;
+text-align: center;
+margin-bottom: 10px;
+}
+
+.section-subtitle {
+text-align: center;
+color: var(--text-muted);
+margin-bottom: 40px;
+font-size: 0.95rem;
+}
+
+.accent-line {
+width: 60px;
+height: 3px;
+background-color: var(--accent);
+margin: 10px auto 40px;
+border-radius: 2px;
+}
+
+.hero-phone:hover { color: var(--accent); }
+
+/* HERO */
+.hero {
+height: 100vh;
+background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.85)), url('hero-bg.jpg');
+background-size: cover;
+background-position: center;
+background-attachment: fixed;
+display: flex;
+align-items: center;
+justify-content: center;
+text-align: center;
+}
+
+.hero-content { max-width: 800px; padding: 20px; }
+.hero h1 { font-size: 4rem; letter-spacing: 2px; margin-bottom: 10px; }
+.hero .subtitle {
+font-family: var(--font-serif);
+font-style: italic;
+font-size: 1.5rem;
+color: var(--accent);
+margin-bottom: 20px;
+}
+.hero p { font-size: 1.1rem; margin-bottom: 30px; color: #ddd; }
+
+.hero-phone {
+display: block;
+margin-top: 15px;
+color: var(--text-main);
+text-decoration: none;
+font-size: 1.2rem;
+font-weight: 600;
+}
+
+/* GRID & CARDS */
+.grid-section { padding: 60px 0; }
+.grid-container {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 24px;
+}
+
+.card {
+background: rgba(35, 25, 19, 0.85);
+border: 1px solid var(--border);
+border-radius: 12px;
+overflow: hidden; /* Fix for images */
+transition: transform 0.3s, border-color 0.3s;
+}
+
+.card:hover {
+transform: translateY(-5px);
+border-color: var(--accent);
+}
+
+/* Клас для реальних фото товарів */
+.product-img {
+width: 100%;
+height: 200px; /* Висота фото */
+object-fit: cover; /* Обрізає фото, щоб не розтягувалось */
+display: block;
+border-bottom: 2px solid var(--accent);
+}
+
+/* Емодзі, якщо фото немає */
+.card-image-placeholder {
+height: 150px;
+background: rgba(255,255,255,0.05);
+display: flex;
+align-items: center;
+justify-content: center;
+margin-bottom: 20px; /* Відступ, якщо немає фото */
+font-size: 4rem;
+}
+
+.card-body { padding: 20px; text-align: center; }
+.card h3 { margin-bottom: 10px; font-size: 1.3rem; }
+.card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px; }
+
+.price {
+display: block;
+color: var(--accent);
+font-weight: 700;
+font-size: 1.1rem;
+}
+
+.btn {
+display: inline-block;
+background: var(--accent);
+color: #1a1411;
+padding: 15px 30px;
+border-radius: 50px;
+font-weight: 600;
+text-decoration: none;
+transition: transform 0.3s, box-shadow 0.3s;
+text-transform: uppercase;
+border: none;
+cursor: pointer;
+font-size: 1rem;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(214, 144, 35, 0.3); }
+
+.icon-emoji { font-size: 3rem; margin-bottom: 15px; display: block; }
+.icon-small { font-size: 2.5rem; margin-bottom: 10px; display: block; }
+
+/* STEPS */
+.steps-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+gap: 20px;
+text-align: center;
+}
+.step-number {
+background: var(--accent);
+color: #000;
+width: 30px;
+height: 30px;
+border-radius: 50%;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+font-weight: bold;
+margin-bottom: 15px;
+}
+/* WHY US */
+.why-us-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 24px;
+}
+
+/* REVIEWS */
+.reviews-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+gap: 20px;
+}
+
+.review-card {
+background: rgba(35, 25, 19, 0.85);
+border: 1px solid var(--border);
+padding: 25px;
+border-radius: 12px;
+}
+.stars { color: #FFD700; margin-bottom: 10px; }
+.review-text { font-style: italic; color: var(--text-muted); font-size: 0.95rem; }
+.review-author { margin-top: 15px; font-weight: bold; font-size: 0.9rem; }
+.review-geo { font-size: 0.8rem; color: var(--text-muted); }
+
+/* GALLERY */
+.gallery-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 15px;
+}
+.gallery-item {
+background: var(--card-bg);
+height: 250px;
+border-radius: 8px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+border: 1px solid var(--border);
+opacity: 0.9;
+}
+.gallery-caption { margin-top: 15px; font-size: 0.9rem; font-weight: 600; }
+
+/* TIKTOK */
+.tiktok-block {
+text-align: center;
+padding: 60px 0;
+background: linear-gradient(180deg, transparent, rgba(214, 144, 35, 0.08), transparent);
+}
+.tiktok-btn {
+display: inline-flex;
+align-items: center;
+gap: 10px;
+background: var(--accent);
+padding: 12px 25px;
+border-radius: 10px;
+color: #000;
+font-weight: bold;
+text-decoration: none;
+}
+
+/* DELIVERY */
+.delivery-grid {
+display: flex;
+justify-content: center;
+gap: 30px;
+}
+.delivery-grid .card { width: 100%; max-width: 400px; }
+
+/* FOOTER */
+footer {
+background: #0f0a07;
+padding: 60px 0 30px;
+border-top: 1px solid var(--border);
+position: relative;
+z-index: 1;
+}
+.footer-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 50px;
+margin-bottom: 40px;
+}
+.footer-phone {
+font-size: 2rem;
+color: var(--accent);
+font-weight: 700;
+text-decoration: none;
+}
+.footer-address { color: var(--text-muted); margin-top: 10px; }
+
+.form input, .form textarea {
+width: 100%;
+padding: 15px;
+margin-bottom: 15px;
+background: rgba(255,255,255,0.05);
+border: 1px solid var(--border);
+color: #fff;
+border-radius: 8px;
+font-family: var(--font-sans);
+}
+.form input:focus, .form textarea:focus {
+outline: none;
+border-color: var(--accent);
+}
+.form button { width: 100%; }
+
+.copyright {
+text-align: center;
+color: #555;
+font-size: 0.8rem;
+border-top: 1px solid rgba(255,255,255,0.05);
+padding-top: 20px;
+}
+
+@media (max-width: 768px) {
+.hero h1 { font-size: 2.5rem; }
+h2 { font-size: 1.8rem; }
+.footer-grid { text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ШАР З ДИМОМ -->
+<div class="smoke-overlay"></div>
+
+<!-- HERO -->
+<header class="hero">
+<div class="hero-content">
+<h1>ДИМ І ГОРИ</h1>
+<div class="subtitle">Натуральне копчення з Прикарпаття</div>
+<p>Справжній дим бука, яблуні та вишні. Традиційні гуцульські рецепти. <br>Свіжа продукція щодня з Гошева, Івано-Франківщина.</p>
+<a href="#footer" class="btn">Замовити зараз</a>
+<a href="tel:+380979318260" class="hero-phone">📞 +380 97 931 82 60</a>
+</div>
+</header>
+
+<!-- ПРО НАС -->
+<section class="about container">
+<span class="icon-emoji">🔥</span>
+<h2>Про нас</h2>
+<div class="accent-line"></div>
+<div class="about-text">
+<p>Ми — сімейна коптильня з маленького села Гошів, що біля Ясної Гори на Івано-Франківщині. Тут, серед карпатських смерек, ми коптимо м'ясо так, як це робили наші діди — на справжньому димі з бука, яблуні та вишні.</p>
+<p>Жодної хімії, жодних консервантів — тільки свіже м'ясо, натуральні спеції та тепло карпатського вогнища. Кожен шматок — це частинка нашої любові до рідного краю і гуцульських традицій.</p>
+</div>
+</section>
+
+<!-- НАШІ ХІТИ -->
+<section class="grid-section container">
+<h2>Наші хіти</h2>
+<div class="accent-line"></div>
+
+<div class="grid-container">
+<!-- 1. Сало (Emoji залишився, якщо немає фото) -->
+<div class="card">
+<div class="card-image-placeholder">🍞</div>
+<div class="card-body">
+<h3>Сало копчене</h3>
+<p>Копчене сало з прошарками, натерте карпатськими травами та часником. Золотиста скоринка, ніжний аромат.</p>
+<span class="price">280 грн/кг</span>
+</div>
+</div>
+
+<!-- 2. Ковбаси (Emoji) -->
+<div class="card">
+<div class="card-image-placeholder">🌭</div>
+<div class="card-body">
+<h3>Копчені ковбаси</h3>
+<p>Домашня ковбаса гарячого копчення за гуцульським рецептом — соковита, ароматна, з натуральними спеціями.</p>
+<span class="price">320 грн/кг</span>
+</div>
+</div>
+
+<!-- 3. РЕБРА (Ваше фото) -->
+<div class="card">
+<img src="ribs.jpg" alt="Копчені реберця" class="product-img">
+<div class="card-body">
+<h3>Реберця копчені</h3>
+<p>Свинячі реберця гарячого копчення на вишневих дровах — золотиста хрустка скоринка ззовні.</p>
+<span class="price">350 грн/кг</span>
+</div>
+</div>
+
+<!-- 4. РИБА (Ваше фото) -->
+<div class="card">
+<img src="ryba.jpg" alt="Копчена риба" class="product-img">
+<div class="card-body">
+<h3>Риба копчена</h3>
+<p>Ідеальний вибір для святкового столу та пива. Сом або форель золотистого кольору з ароматом вишні.</p>
+<span class="price">350 грн/кг</span>
+</div>
+</div>
+
+<!-- 5. ПЕРЕПІЛКИ (Ваше фото) -->
+<div class="card">
+<img src="perpelky.jpg" alt="Копчені перепілки" class="product-img">
+<div class="card-body">
+<h3>Перепілки копчені</h3>
+<p>Мініатюрні перепілки або курята з золотистою кірочкою. Ідеальна закуска, яка тане в роті.</p>
+<span class="price">250 грн/кг</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ЯК МИ КОПТИМО -->
+<section class="grid-section" style="background: rgba(0,0,0,0.3);">
+<div class="container">
+<h2>Як ми коптимо</h2>
+<div class="accent-line"></div>
+<div class="steps-grid">
+<div class="card">
+<span class="step-number">01</span>
+<span class="icon-small">🥩</span>
+<h3>Відбір м'яса</h3>
+<p>Найсвіжіше м'ясо від перевіренних фермерів Прикарпаття.</p>
+</div>
+<div class="card">
+<span class="step-number">02</span>
+<span class="icon-small">🌲</span>
+<h3>Засолювання</h3>
+<p>Натираємо спеціями та сіллю. Витримуємо.</p>
+</div>
+<div class="card">
+<span class="step-number">03</span>
+<span class="icon-small">🔥</span>
+<h3>Копчення</h3>
+<p>На деревині бука, яблуня і вишні.</p>
+</div>
+<div class="card">
+<span class="step-number">04</span>
+<span class="icon-small">📦</span>
+<h3>Упаковка</h3>
+<p>Вакуумна упаковка для збереження смаку.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ЧОМУ МИ -->
+<section class="grid-section container">
+<h2>Чому обирають нас</h2>
+<div class="accent-line"></div>
+<div class="why-us-grid">
+<div class="card"><span class="icon-small">🌲</span><h3>Натуральні дрова</h3><p>Бук, ялунця, вишня</p></div>
+<div class="card"><span class="icon-small">🛡️</span><h3>Без хімії</h3><p>Тільки м'ясо, сіль та спеції</p></div>
+<div class="card"><span class="icon-small">🚚</span><h3>Швидка доставка</h3><p>По всій Україні</p></div>
+<div class="card"><span class="icon-small">🍳</span><h3>Свіже щодня</h3><p>Коптимо маленькими партіями</p></div>
+</div>
+</section>
+
+<!-- ВІДГУКИ -->
+<section class="grid-section" style="background: rgba(0,0,0,0.3);">
+<div class="container">
+<h2>Відгуки</h2>
+<div class="accent-line"></div>
+<div class="reviews-grid">
+<div class="review-card"><p class="review-text">«Замовляю вже третій раз — смак просто бомба!»</p><div class="review-author">Оксана М.</div></div>
+<div class="review-card"><p class="review-text">«Балик тане в роті. Доставка дійсно швидка.»</p><div class="review-author">Андрій К.</div></div>
+<div class="review-card"><p class="review-text">«Нарешті знайшла копченості без хімії!»</p><div class="review-author">Марія Л.</div></div>
+<div class="review-card"><p class="review-text">«Реберця на день народження замість торта — ідеально.»</p><div class="review-author">Тарас В.</div></div>
+</div>
+</div>
+</section>
+
+<!-- ГАЛЕРЕЯ / TIKTOK -->
+<section class="grid-section" style="background: rgba(0,0,0,0.3); text-align:center;">
+<div class="container">
+<span class="icon-emoji">🔥</span>
+<h2>Дивіться наш TikTok</h2>
+<p style="margin-bottom: 20px; color: #A89B8D;">Справжній процес, закулісся коптильні, рецепти та карпатський настрій</p>
+<a href="#" class="tiktok-btn">@smokerdum у TikTok</a>
+</div>
+</section>
+
+<!-- ДОСТАВКА -->
+<section class="grid-section container">
+<h2>Доставка та оплата</h2>
+<div class="accent-line"></div>
+<div class="delivery-grid">
+<div class="card">
+<span class="icon-small">📍</span>
+<h3>Самовивіз з Гошева</h3>
+<p>Завітайте до коптильні — покажемо процес та продегустуємо свіжачок!</p>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+<div class="container">
+<h2>Контакти</h2>
+<div class="accent-line"></div>
+<div class="footer-grid">
+<div class="footer-info">
+<a href="tel:+380979318260" class="footer-phone">+380 97 931 82 60</a>
+<p class="footer-address">📍 Село Гошів, Івано-Франківщина</p>
+<p class="tiktok-link">🔥 <a href="#" style="color:var(--accent)">Відео від @smokerdum</a></p>
+</div>
+<div class="form">
+<input type="text" placeholder="Ваше ім'я">
+<input type="tel" placeholder="Телефон">
+<textarea rows="3" placeholder="Що замовляєте?"></textarea>
+<button class="btn">Надіслати</button>
+</div>
+</div>
+<div class="copyright">© 2024 Дим і Гори. Всі права захищені.</div>
+</div>
+</footer>
+
+</body>
+</html>
+```
