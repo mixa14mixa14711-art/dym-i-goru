@@ -212,10 +212,12 @@
             background-repeat: no-repeat;
             background-position: center center;
             background-size: min(560px, 80vw);
-            opacity: 0.12;
+            opacity: 0.14;
             mix-blend-mode: screen;
             pointer-events: none;
             z-index: 0;
+            transform: translateY(var(--about-parallax, 0));
+            will-change: transform;
         }
         .about .container { position: relative; z-index: 1; }
         .about .icon-emoji { font-size: 3rem; display: inline-block; margin-bottom: 10px; }
@@ -529,6 +531,184 @@
             .hero { background-attachment: scroll; }
         }
 
+        /* ===== FULL-PAGE SMOKE LAYER ===== */
+        .smoke-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .smoke-svg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.55;
+        }
+        .smoke-blob {
+            position: absolute;
+            width: 640px;
+            height: 640px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(210,210,210,0.28) 0%, rgba(210,210,210,0.08) 38%, rgba(210,210,210,0) 70%);
+            filter: blur(40px);
+            mix-blend-mode: screen;
+            left: -200px;
+            bottom: -300px;
+            animation: smokeDrift 32s linear infinite;
+            will-change: transform, opacity;
+        }
+        .smoke-blob:nth-child(2) { left: 25%; width: 540px; height: 540px; animation-duration: 42s; animation-delay: -12s; }
+        .smoke-blob:nth-child(3) { left: 55%; width: 700px; height: 700px; animation-duration: 38s; animation-delay: -22s; }
+        .smoke-blob:nth-child(4) { left: 80%; width: 480px; height: 480px; animation-duration: 48s; animation-delay: -6s; }
+        .smoke-blob:nth-child(5) { left: 10%;  width: 420px; height: 420px; animation-duration: 28s; animation-delay: -28s; }
+        @keyframes smokeDrift {
+            0%   { transform: translate3d(0, 0, 0) scale(0.9); opacity: 0; }
+            10%  { opacity: 0.9; }
+            50%  { transform: translate3d(40px, -60vh, 0) scale(1.25); opacity: 0.7; }
+            85%  { opacity: 0.3; }
+            100% { transform: translate3d(-30px, -140vh, 0) scale(1.8); opacity: 0; }
+        }
+
+        /* ===== SMOKER MASCOT (fixed bottom-left) ===== */
+        .smoker {
+            position: fixed;
+            left: 18px;
+            bottom: 14px;
+            width: 300px;
+            height: 230px;
+            z-index: 3;
+            pointer-events: none;
+            filter: drop-shadow(0 14px 24px rgba(0,0,0,0.55));
+        }
+        .smoker-svg { width: 100%; height: 100%; overflow: visible; }
+        .smoker-body { animation: smokerRock 5.2s ease-in-out infinite; transform-origin: 160px 200px; transform-box: fill-box; }
+        @keyframes smokerRock {
+            0%, 100% { transform: rotate(-0.6deg); }
+            50%      { transform: rotate(0.6deg); }
+        }
+        .fire-layer { animation: fireFlicker 0.42s ease-in-out infinite; transform-origin: center bottom; }
+        @keyframes fireFlicker {
+            0%, 100% { opacity: 0.92; transform: scaleY(1) scaleX(1); }
+            30%      { opacity: 1;    transform: scaleY(1.08) scaleX(1.04) translateY(-1px); }
+            70%      { opacity: 0.82; transform: scaleY(0.94) scaleX(0.98); }
+        }
+        .chimney-puff {
+            animation: chimneyPuff 3.6s ease-out infinite;
+            transform-origin: center center;
+        }
+        .chimney-puff:nth-of-type(2) { animation-delay: -1.2s; }
+        .chimney-puff:nth-of-type(3) { animation-delay: -2.4s; }
+        @keyframes chimneyPuff {
+            0%   { transform: translate(0, 0) scale(0.5); opacity: 0; }
+            20%  { opacity: 0.75; }
+            100% { transform: translate(22px, -240px) scale(2.4); opacity: 0; }
+        }
+        .wheel-spoke { animation: wheelSpin 6s linear infinite; transform-origin: center; transform-box: fill-box; }
+        @keyframes wheelSpin {
+            to { transform: rotate(360deg); }
+        }
+        @media (max-width: 768px) {
+            .smoker { width: 170px; height: 130px; left: 6px; bottom: 6px; opacity: 0.85; }
+        }
+        @media (max-width: 460px) {
+            .smoker { display: none; }
+        }
+
+        /* ===== 3D HERO TITLE ===== */
+        .hero h1 {
+            color: #f3e6c8;
+            text-shadow:
+                0 1px 0 #a3710e,
+                0 2px 0 #966908,
+                0 3px 0 #8a6108,
+                0 4px 0 #7a5607,
+                0 5px 0 #6a4b06,
+                0 6px 1px rgba(0,0,0,0.1),
+                0 0 5px rgba(0,0,0,0.1),
+                0 1px 3px rgba(0,0,0,0.3),
+                0 3px 5px rgba(0,0,0,0.3),
+                0 5px 10px rgba(0,0,0,0.35),
+                0 10px 18px rgba(0,0,0,0.45),
+                0 0 40px rgba(214, 144, 35, 0.35);
+            transform: perspective(600px) rotateX(6deg);
+        }
+
+        /* ===== 3D TILT CARDS ===== */
+        .card {
+            transform-style: preserve-3d;
+            transition: transform 0.18s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.3s, border-color 0.3s;
+        }
+        .card .card-body, .card .product-img, .card .card-image-placeholder {
+            transform: translateZ(0);
+            transition: transform 0.3s;
+        }
+        .card:hover .product-img, .card:hover .card-image-placeholder { transform: translateZ(20px); }
+        .card:hover .card-body { transform: translateZ(10px); }
+        .card:hover {
+            box-shadow: 0 25px 60px rgba(0,0,0,0.55), 0 0 30px rgba(214,144,35,0.18);
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(44px);
+            transition: opacity 0.9s cubic-bezier(0.2,0.8,0.2,1), transform 0.9s cubic-bezier(0.2,0.8,0.2,1);
+            will-change: transform, opacity;
+        }
+        .reveal.is-visible { opacity: 1; transform: translateY(0); }
+        .reveal.delay-1 { transition-delay: 0.08s; }
+        .reveal.delay-2 { transition-delay: 0.16s; }
+        .reveal.delay-3 { transition-delay: 0.24s; }
+
+        /* ===== GLOW CTAs ===== */
+        .btn {
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            box-shadow: 0 0 0 0 rgba(214,144,35,0);
+        }
+        .btn::before {
+            content: "";
+            position: absolute;
+            inset: -50%;
+            background: conic-gradient(from 0deg, rgba(255,200,100,0) 0%, rgba(255,200,100,0.55) 20%, rgba(255,200,100,0) 40%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -1;
+            animation: spinCta 2.8s linear infinite;
+        }
+        .btn:hover { box-shadow: 0 12px 28px rgba(214,144,35,0.45), 0 0 40px rgba(214,144,35,0.3); }
+        .btn:hover::before { opacity: 1; }
+        @keyframes spinCta { to { transform: rotate(360deg); } }
+
+        /* ===== ANIMATED FLAME (replaces 🔥) ===== */
+        .flame-svg { width: 64px; height: 76px; margin: 0 auto 10px; display: block; filter: drop-shadow(0 6px 14px rgba(255,120,30,0.35)); }
+        .flame-core { animation: flicker 0.55s ease-in-out infinite alternate; transform-origin: center bottom; transform-box: fill-box; }
+        .flame-outer { animation: flicker 0.75s ease-in-out infinite alternate-reverse; transform-origin: center bottom; transform-box: fill-box; }
+        @keyframes flicker {
+            from { transform: scaleY(1) translateY(0); opacity: 0.9; }
+            to   { transform: scaleY(1.1) translateY(-2px); opacity: 1; }
+        }
+
+        /* ===== STACKING: content above smoke, below nav ===== */
+        .nav { z-index: 100; }
+        .hero, main, section, footer { position: relative; z-index: 2; }
+        .toast { z-index: 200; }
+
+        /* ===== PARALLAX FLOATS inside hero (decor) ===== */
+        .hero-decor {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0.22;
+            filter: blur(1px) drop-shadow(0 4px 10px rgba(0,0,0,0.4));
+            will-change: transform;
+        }
+        .hero-decor.d1 { left: 8%;  top: 22%; font-size: 5rem; }
+        .hero-decor.d2 { right: 10%; top: 30%; font-size: 4rem; }
+        .hero-decor.d3 { left: 14%; bottom: 18%; font-size: 3.2rem; }
+
         /* TOAST */
         .toast {
             position: fixed;
@@ -556,6 +736,134 @@
 </head>
 <body>
 
+    <!-- ===== FULL-PAGE SMOKE LAYER ===== -->
+    <div class="smoke-layer" aria-hidden="true">
+        <svg class="smoke-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <defs>
+                <filter id="smokeTurb" x="-20%" y="-20%" width="140%" height="140%">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.008 0.014" numOctaves="2" seed="7">
+                        <animate attributeName="baseFrequency" dur="55s"
+                                 values="0.008 0.014; 0.012 0.02; 0.008 0.014" repeatCount="indefinite"/>
+                    </feTurbulence>
+                    <feColorMatrix values="0 0 0 0 0.9
+                                           0 0 0 0 0.9
+                                           0 0 0 0 0.9
+                                           0 0 0 0.11 0"/>
+                </filter>
+                <radialGradient id="smokeVignette" cx="50%" cy="55%" r="75%">
+                    <stop offset="0%" stop-color="white" stop-opacity="1"/>
+                    <stop offset="60%" stop-color="white" stop-opacity="0.6"/>
+                    <stop offset="100%" stop-color="white" stop-opacity="0"/>
+                </radialGradient>
+                <mask id="smokeMask">
+                    <rect width="100%" height="100%" fill="url(#smokeVignette)"/>
+                </mask>
+            </defs>
+            <rect width="100%" height="100%" filter="url(#smokeTurb)" mask="url(#smokeMask)"/>
+        </svg>
+        <div class="smoke-blob"></div>
+        <div class="smoke-blob"></div>
+        <div class="smoke-blob"></div>
+        <div class="smoke-blob"></div>
+        <div class="smoke-blob"></div>
+    </div>
+
+    <!-- ===== SMOKER MASCOT ===== -->
+    <div class="smoker" aria-hidden="true">
+        <svg class="smoker-svg" viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="barrelGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"  stop-color="#4a3224"/>
+                    <stop offset="45%" stop-color="#2a1a0f"/>
+                    <stop offset="100%" stop-color="#120a05"/>
+                </linearGradient>
+                <radialGradient id="barrelHighlight" cx="40%" cy="30%" r="50%">
+                    <stop offset="0%" stop-color="rgba(255,220,170,0.25)"/>
+                    <stop offset="100%" stop-color="rgba(255,220,170,0)"/>
+                </radialGradient>
+                <linearGradient id="fireGrad" x1="0" y1="1" x2="0" y2="0">
+                    <stop offset="0%"  stop-color="#ff4a0f"/>
+                    <stop offset="55%" stop-color="#ffb547"/>
+                    <stop offset="100%" stop-color="#fff1a8"/>
+                </linearGradient>
+                <radialGradient id="wheelGrad" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%"  stop-color="#3a2614"/>
+                    <stop offset="80%" stop-color="#0e0805"/>
+                </radialGradient>
+                <radialGradient id="emberGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%"  stop-color="rgba(255,180,60,0.9)"/>
+                    <stop offset="100%" stop-color="rgba(255,120,20,0)"/>
+                </radialGradient>
+            </defs>
+
+            <!-- Chimney smoke puffs (behind body) -->
+            <g>
+                <circle class="chimney-puff" cx="244" cy="42" r="14" fill="rgba(220,220,220,0.55)"/>
+                <circle class="chimney-puff" cx="244" cy="42" r="18" fill="rgba(220,220,220,0.42)"/>
+                <circle class="chimney-puff" cx="244" cy="42" r="11" fill="rgba(220,220,220,0.6)"/>
+            </g>
+
+            <g class="smoker-body">
+                <!-- Cart frame -->
+                <rect x="50" y="176" width="220" height="6" rx="2" fill="#1d1208"/>
+                <rect x="52" y="168" width="8"   height="20" fill="#2a1a0f"/>
+                <rect x="260" y="168" width="8"  height="20" fill="#2a1a0f"/>
+
+                <!-- Barrel body -->
+                <ellipse cx="160" cy="130" rx="115" ry="58" fill="url(#barrelGrad)"/>
+                <ellipse cx="160" cy="130" rx="115" ry="58" fill="url(#barrelHighlight)"/>
+                <!-- Dark rim on left -->
+                <ellipse cx="45"  cy="130" rx="10" ry="58" fill="#0a0604"/>
+                <!-- Lid seam -->
+                <path d="M 50 112 Q 160 92 270 112" stroke="#6a4323" stroke-width="2" fill="none" opacity="0.7"/>
+                <!-- Handle on lid -->
+                <rect x="148" y="80" width="24" height="4" rx="2" fill="#1c120a"/>
+                <path d="M 150 82 Q 160 70 170 82" stroke="#d0a45a" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+                <!-- Door -->
+                <rect x="128" y="118" width="64" height="44" rx="4" fill="#140b06" stroke="#5a3820" stroke-width="1.5"/>
+                <rect x="132" y="122" width="56" height="36" rx="2" fill="none" stroke="#3a2614" stroke-width="1"/>
+                <circle cx="184" cy="140" r="2.5" fill="#d0a45a"/>
+
+                <!-- Vent (fire glow) -->
+                <g class="fire-layer">
+                    <rect x="136" y="142" width="48" height="16" rx="3" fill="url(#fireGrad)"/>
+                    <path d="M 144 158 Q 150 144 156 152 Q 162 140 168 152 Q 174 144 180 158 Z" fill="#ffd067" opacity="0.95"/>
+                    <circle cx="160" cy="150" r="14" fill="url(#emberGlow)" opacity="0.8"/>
+                </g>
+
+                <!-- Chimney -->
+                <rect x="232" y="55" width="22" height="62" fill="#1c120a"/>
+                <rect x="228" y="48" width="30" height="10" rx="1" fill="#2a1a0f"/>
+                <rect x="234" y="55" width="6"  height="62" fill="#2e1d10" opacity="0.8"/>
+
+                <!-- Temperature gauge -->
+                <circle cx="80" cy="135" r="13" fill="#0e0704" stroke="#caa050" stroke-width="1.8"/>
+                <circle cx="80" cy="135" r="9"  fill="#1a1108"/>
+                <line x1="80" y1="135" x2="86" y2="130" stroke="#d0a45a" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="80" cy="135" r="1.5" fill="#d0a45a"/>
+
+                <!-- Wheels -->
+                <g>
+                    <circle cx="80" cy="198" r="24" fill="url(#wheelGrad)" stroke="#1c120a" stroke-width="2"/>
+                    <g class="wheel-spoke">
+                        <circle cx="80" cy="198" r="9" fill="#3a2614"/>
+                        <rect x="78" y="178" width="4" height="40" fill="#2a1a0f"/>
+                        <rect x="60" y="196" width="40" height="4" fill="#2a1a0f"/>
+                    </g>
+                </g>
+                <g>
+                    <circle cx="240" cy="198" r="24" fill="url(#wheelGrad)" stroke="#1c120a" stroke-width="2"/>
+                    <g class="wheel-spoke">
+                        <circle cx="240" cy="198" r="9" fill="#3a2614"/>
+                        <rect x="238" y="178" width="4" height="40" fill="#2a1a0f"/>
+                        <rect x="220" y="196" width="40" height="4" fill="#2a1a0f"/>
+                    </g>
+                </g>
+            </g>
+        </svg>
+    </div>
+
     <!-- NAV -->
     <nav class="nav">
         <div class="nav-inner">
@@ -572,11 +880,14 @@
 
     <!-- HERO -->
     <header class="hero" id="top">
+        <span class="hero-decor d1" aria-hidden="true">🔥</span>
+        <span class="hero-decor d2" aria-hidden="true">🌲</span>
+        <span class="hero-decor d3" aria-hidden="true">🏔️</span>
         <div class="hero-content">
-            <h1>ДИМ І ГОРИ</h1>
-            <div class="subtitle">Натуральне копчення з Прикарпаття</div>
-            <p>Справжній дим бука, яблуні та вишні. Традиційні гуцульські рецепти без хімії. Свіжа продукція щодня з Гошева, Івано-Франківщина.</p>
-            <div class="hero-actions">
+            <h1 class="reveal">ДИМ І ГОРИ</h1>
+            <div class="subtitle reveal delay-1">Натуральне копчення з Прикарпаття</div>
+            <p class="reveal delay-2">Справжній дим бука, яблуні та вишні. Традиційні гуцульські рецепти без хімії. Свіжа продукція щодня з Гошева, Івано-Франківщина.</p>
+            <div class="hero-actions reveal delay-3">
                 <a href="#order" class="btn">Замовити зараз</a>
                 <a href="tel:+380979318260" class="hero-phone-btn">📞 +380 97 931 82 60</a>
             </div>
@@ -586,10 +897,28 @@
     <!-- ABOUT -->
     <section class="section-pad about" id="about">
         <div class="container">
-            <span class="icon-emoji">🔥</span>
-            <h2>Про нас</h2>
-            <div class="accent-line"></div>
-            <div class="about-text">
+            <svg class="flame-svg reveal" viewBox="0 0 64 76" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <defs>
+                    <linearGradient id="flameOuter" x1="0" y1="1" x2="0" y2="0">
+                        <stop offset="0%"  stop-color="#ff2f00"/>
+                        <stop offset="60%" stop-color="#ff8a1f"/>
+                        <stop offset="100%" stop-color="#ffe07a"/>
+                    </linearGradient>
+                    <linearGradient id="flameCore" x1="0" y1="1" x2="0" y2="0">
+                        <stop offset="0%"  stop-color="#ffb547"/>
+                        <stop offset="100%" stop-color="#fff3c4"/>
+                    </linearGradient>
+                </defs>
+                <path class="flame-outer"
+                      d="M32 74 C 12 72, 4 56, 10 40 C 14 30, 22 28, 22 18 C 22 10, 28 4, 32 2 C 36 14, 48 18, 52 34 C 58 52, 50 72, 32 74 Z"
+                      fill="url(#flameOuter)"/>
+                <path class="flame-core"
+                      d="M32 70 C 20 68, 16 56, 22 46 C 26 38, 30 40, 30 30 C 30 24, 34 22, 36 18 C 40 28, 44 34, 44 46 C 44 60, 40 70, 32 70 Z"
+                      fill="url(#flameCore)"/>
+            </svg>
+            <h2 class="reveal delay-1">Про нас</h2>
+            <div class="accent-line reveal delay-1"></div>
+            <div class="about-text reveal delay-2">
                 <p>Ми — сімейна коптильня з маленького села Гошів, що біля Ясної Гори на Івано-Франківщині. Тут, серед карпатських смерек, ми коптимо м'ясо так, як це робили наші діди — на справжньому димі з бука, яблуні та вишні.</p>
                 <p>Жодної хімії, жодних консервантів — тільки свіже м'ясо, натуральні спеції та тепло карпатського вогнища. Кожен шматок — це частинка нашої любові до рідного краю і гуцульських традицій.</p>
             </div>
@@ -599,10 +928,10 @@
     <!-- PRODUCTS -->
     <section class="section-pad section-alt" id="products">
         <div class="container">
-            <h2>Наші хіти</h2>
-            <div class="accent-line"></div>
+            <h2 class="reveal">Наші хіти</h2>
+            <div class="accent-line reveal"></div>
             <div class="grid-container">
-                <article class="card" data-product="Реберця копчені" data-price="350">
+                <article class="card reveal" data-product="Реберця копчені" data-price="350">
                     <img src="rebra.jpg" alt="Копчені реберця на вишневих дровах" class="product-img" loading="lazy">
                     <div class="card-body">
                         <h3>Реберця копчені</h3>
@@ -611,7 +940,7 @@
                     </div>
                 </article>
 
-                <article class="card" data-product="Перепілки / курята копчені" data-price="250">
+                <article class="card reveal delay-1" data-product="Перепілки / курята копчені" data-price="250">
                     <img src="kury.jpg" alt="Копчені перепілки з золотистою кірочкою" class="product-img" loading="lazy">
                     <div class="card-body">
                         <h3>Перепілки копчені</h3>
@@ -620,7 +949,7 @@
                     </div>
                 </article>
 
-                <article class="card" data-product="Риба копчена" data-price="350">
+                <article class="card reveal delay-2" data-product="Риба копчена" data-price="350">
                     <img src="ryba.jpg" alt="Копчена риба золотистого кольору" class="product-img" loading="lazy">
                     <div class="card-body">
                         <h3>Риба копчена</h3>
@@ -629,7 +958,7 @@
                     </div>
                 </article>
 
-                <article class="card" data-product="Сало копчене" data-price="280">
+                <article class="card reveal" data-product="Сало копчене" data-price="280">
                     <div class="card-image-placeholder" aria-hidden="true">🥓</div>
                     <div class="card-body">
                         <h3>Сало копчене</h3>
@@ -638,7 +967,7 @@
                     </div>
                 </article>
 
-                <article class="card" data-product="Копчені ковбаси" data-price="320">
+                <article class="card reveal delay-1" data-product="Копчені ковбаси" data-price="320">
                     <div class="card-image-placeholder" aria-hidden="true">🌭</div>
                     <div class="card-body">
                         <h3>Копчені ковбаси</h3>
@@ -647,7 +976,7 @@
                     </div>
                 </article>
 
-                <article class="card" data-product="Копчена підчеревина" data-price="300">
+                <article class="card reveal delay-2" data-product="Копчена підчеревина" data-price="300">
                     <img src="pidcherevyna.jpg" alt="Копчена підчеревина з пряною скоринкою" class="product-img" loading="lazy">
                     <div class="card-body">
                         <h3>Копчена підчеревина</h3>
@@ -662,8 +991,8 @@
     <!-- HOW WE SMOKE -->
     <section class="section-pad" id="how">
         <div class="container">
-            <h2>Як ми коптимо</h2>
-            <div class="accent-line"></div>
+            <h2 class="reveal">Як ми коптимо</h2>
+            <div class="accent-line reveal"></div>
             <div class="steps-grid">
                 <div class="step">
                     <span class="step-number">01</span>
@@ -696,8 +1025,8 @@
     <!-- WHY US -->
     <section class="section-pad section-alt">
         <div class="container">
-            <h2>Чому обирають нас</h2>
-            <div class="accent-line"></div>
+            <h2 class="reveal">Чому обирають нас</h2>
+            <div class="accent-line reveal"></div>
             <div class="why-us-grid">
                 <div class="why-item"><span class="icon-small" aria-hidden="true">🌲</span><h3>Натуральні дрова</h3><p>Бук, яблуня, вишня</p></div>
                 <div class="why-item"><span class="icon-small" aria-hidden="true">🛡️</span><h3>Без хімії</h3><p>Тільки м'ясо, сіль та спеції</p></div>
@@ -710,8 +1039,8 @@
     <!-- REVIEWS -->
     <section class="section-pad">
         <div class="container">
-            <h2>Відгуки</h2>
-            <div class="accent-line"></div>
+            <h2 class="reveal">Відгуки</h2>
+            <div class="accent-line reveal"></div>
             <div class="reviews-grid">
                 <div class="review-card">
                     <div class="stars" aria-label="5 з 5">★★★★★</div>
@@ -744,8 +1073,8 @@
     <!-- ORDER FORM -->
     <section class="section-pad section-alt" id="order">
         <div class="container">
-            <h2>Форма замовлення</h2>
-            <div class="accent-line"></div>
+            <h2 class="reveal">Форма замовлення</h2>
+            <div class="accent-line reveal"></div>
             <div class="order-wrap">
                 <p class="section-hint">Оберіть продукцію та залиште контакти — ми передзвонимо для підтвердження замовлення.</p>
                 <form class="form" id="order-form" novalidate>
@@ -787,7 +1116,7 @@
     <section class="tiktok-block">
         <div class="container">
             <span class="icon-small" aria-hidden="true">🎬</span>
-            <h2>Дивіться наш TikTok</h2>
+            <h2 class="reveal">Дивіться наш TikTok</h2>
             <p style="margin-bottom: 20px; color: var(--text-muted);">Справжній процес, закулісся коптильні, рецепти та карпатський настрій</p>
             <a href="https://www.tiktok.com/@smokerdum" target="_blank" rel="noopener" class="tiktok-btn">@smokerdum у TikTok →</a>
         </div>
@@ -796,8 +1125,8 @@
     <!-- FOOTER -->
     <footer id="contacts">
         <div class="container">
-            <h2>Контакти</h2>
-            <div class="accent-line"></div>
+            <h2 class="reveal">Контакти</h2>
+            <div class="accent-line reveal"></div>
             <div class="vizytka-wrap">
                 <img src="vizytka.jpg" alt="Візитка «Дим і Гори» — смаження м'яса, смак народжений у димі" class="vizytka-card" loading="lazy">
             </div>
@@ -894,6 +1223,73 @@
             window.open(waUrl, '_blank', 'noopener');
             showToast('Замовлення готове до відправки у WhatsApp. Перевірте нове вікно.');
         });
+
+        // ===== SCROLL REVEAL (IntersectionObserver) =====
+        (function() {
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const targets = document.querySelectorAll('.reveal');
+            if (reduce || !('IntersectionObserver' in window)) {
+                targets.forEach(el => el.classList.add('is-visible'));
+                return;
+            }
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('is-visible');
+                        io.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
+            targets.forEach(el => io.observe(el));
+        })();
+
+        // ===== 3D CARD TILT (pointer) =====
+        (function() {
+            const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+            if (!fine) return;
+            document.querySelectorAll('.card').forEach(card => {
+                let rect;
+                card.addEventListener('pointerenter', () => { rect = card.getBoundingClientRect(); });
+                card.addEventListener('pointermove', (ev) => {
+                    if (!rect) rect = card.getBoundingClientRect();
+                    const x = (ev.clientX - rect.left) / rect.width;
+                    const y = (ev.clientY - rect.top) / rect.height;
+                    const rx = (0.5 - y) * 10;
+                    const ry = (x - 0.5) * 12;
+                    card.style.transform = `perspective(900px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateY(-6px) scale(1.02)`;
+                });
+                card.addEventListener('pointerleave', () => {
+                    card.style.transform = '';
+                    rect = null;
+                });
+            });
+        })();
+
+        // ===== SCROLL PARALLAX (hero decor + about watermark) =====
+        (function() {
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduce) return;
+            const decors = Array.from(document.querySelectorAll('.hero-decor'));
+            const aboutSection = document.querySelector('.about');
+            let ticking = false;
+            function update() {
+                const y = window.scrollY;
+                decors.forEach((el, i) => {
+                    const speed = [0.18, 0.32, 0.22][i] || 0.2;
+                    el.style.transform = `translate3d(0, ${(y * speed).toFixed(1)}px, 0)`;
+                });
+                if (aboutSection) {
+                    const r = aboutSection.getBoundingClientRect();
+                    const off = (window.innerHeight - r.top) * 0.08;
+                    aboutSection.style.setProperty('--about-parallax', `${off.toFixed(1)}px`);
+                }
+                ticking = false;
+            }
+            window.addEventListener('scroll', () => {
+                if (!ticking) { requestAnimationFrame(update); ticking = true; }
+            }, { passive: true });
+            update();
+        })();
     </script>
 </body>
 </html>
