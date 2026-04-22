@@ -199,7 +199,25 @@
         .section-alt { background: rgba(0,0,0,0.3); }
 
         /* ABOUT */
-        .about { text-align: center; }
+        .about {
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .about::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url('logo.jpg');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: min(560px, 80vw);
+            opacity: 0.12;
+            mix-blend-mode: screen;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .about .container { position: relative; z-index: 1; }
         .about .icon-emoji { font-size: 3rem; display: inline-block; margin-bottom: 10px; }
         .about-text {
             max-width: 800px;
