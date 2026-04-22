@@ -531,183 +531,162 @@
             .hero { background-attachment: scroll; }
         }
 
-        /* ===== FULL-PAGE SMOKE LAYER ===== */
-        .smoke-layer {
-            position: fixed;
+        /* ===== HERO SMOKE (subtle, hero-only) ===== */
+        .hero-smoke {
+            position: absolute;
             inset: 0;
             pointer-events: none;
-            z-index: 0;
             overflow: hidden;
+            z-index: 1;
         }
-        .smoke-svg {
+        .hero-smoke-blob {
             position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.55;
-        }
-        .smoke-blob {
-            position: absolute;
-            width: 640px;
-            height: 640px;
+            bottom: -30%;
+            width: 60vw;
+            height: 60vw;
+            max-width: 720px;
+            max-height: 720px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(210,210,210,0.28) 0%, rgba(210,210,210,0.08) 38%, rgba(210,210,210,0) 70%);
+            background: radial-gradient(circle, rgba(230,220,200,0.18) 0%, rgba(230,220,200,0.06) 45%, rgba(230,220,200,0) 70%);
             filter: blur(40px);
             mix-blend-mode: screen;
-            left: -200px;
-            bottom: -300px;
-            animation: smokeDrift 32s linear infinite;
+            animation: heroSmoke 28s linear infinite;
             will-change: transform, opacity;
         }
-        .smoke-blob:nth-child(2) { left: 25%; width: 540px; height: 540px; animation-duration: 42s; animation-delay: -12s; }
-        .smoke-blob:nth-child(3) { left: 55%; width: 700px; height: 700px; animation-duration: 38s; animation-delay: -22s; }
-        .smoke-blob:nth-child(4) { left: 80%; width: 480px; height: 480px; animation-duration: 48s; animation-delay: -6s; }
-        .smoke-blob:nth-child(5) { left: 10%;  width: 420px; height: 420px; animation-duration: 28s; animation-delay: -28s; }
-        @keyframes smokeDrift {
-            0%   { transform: translate3d(0, 0, 0) scale(0.9); opacity: 0; }
-            10%  { opacity: 0.9; }
-            50%  { transform: translate3d(40px, -60vh, 0) scale(1.25); opacity: 0.7; }
-            85%  { opacity: 0.3; }
-            100% { transform: translate3d(-30px, -140vh, 0) scale(1.8); opacity: 0; }
+        .hero-smoke-blob:nth-child(1) { left: 5%;  animation-delay: 0s; }
+        .hero-smoke-blob:nth-child(2) { left: 40%; animation-delay: -10s; animation-duration: 36s; }
+        .hero-smoke-blob:nth-child(3) { left: 70%; animation-delay: -20s; animation-duration: 32s; }
+        @keyframes heroSmoke {
+            0%   { transform: translate3d(0,0,0) scale(0.9); opacity: 0; }
+            15%  { opacity: 0.8; }
+            100% { transform: translate3d(30px,-120%,0) scale(1.5); opacity: 0; }
         }
 
-        /* ===== SMOKER MASCOT (fixed bottom-left) ===== */
-        .smoker {
-            position: fixed;
-            left: 18px;
-            bottom: 14px;
-            width: 300px;
-            height: 230px;
-            z-index: 3;
-            pointer-events: none;
-            filter: drop-shadow(0 14px 24px rgba(0,0,0,0.55));
-        }
-        .smoker-svg { width: 100%; height: 100%; overflow: visible; }
-        .smoker-body { animation: smokerRock 5.2s ease-in-out infinite; transform-origin: 160px 200px; transform-box: fill-box; }
-        @keyframes smokerRock {
-            0%, 100% { transform: rotate(-0.6deg); }
-            50%      { transform: rotate(0.6deg); }
-        }
-        .fire-layer { animation: fireFlicker 0.42s ease-in-out infinite; transform-origin: center bottom; }
-        @keyframes fireFlicker {
-            0%, 100% { opacity: 0.92; transform: scaleY(1) scaleX(1); }
-            30%      { opacity: 1;    transform: scaleY(1.08) scaleX(1.04) translateY(-1px); }
-            70%      { opacity: 0.82; transform: scaleY(0.94) scaleX(0.98); }
-        }
-        .chimney-puff {
-            animation: chimneyPuff 3.6s ease-out infinite;
-            transform-origin: center center;
-        }
-        .chimney-puff:nth-of-type(2) { animation-delay: -1.2s; }
-        .chimney-puff:nth-of-type(3) { animation-delay: -2.4s; }
-        @keyframes chimneyPuff {
-            0%   { transform: translate(0, 0) scale(0.5); opacity: 0; }
-            20%  { opacity: 0.75; }
-            100% { transform: translate(22px, -240px) scale(2.4); opacity: 0; }
-        }
-        .wheel-spoke { animation: wheelSpin 6s linear infinite; transform-origin: center; transform-box: fill-box; }
-        @keyframes wheelSpin {
-            to { transform: rotate(360deg); }
-        }
-        @media (max-width: 768px) {
-            .smoker { width: 170px; height: 130px; left: 6px; bottom: 6px; opacity: 0.85; }
-        }
-        @media (max-width: 460px) {
-            .smoker { display: none; }
-        }
-
-        /* ===== 3D HERO TITLE ===== */
+        /* ===== HERO TITLE (subtle glow, no 3D extrude) ===== */
         .hero h1 {
             color: #f3e6c8;
+            letter-spacing: 1px;
             text-shadow:
-                0 1px 0 #a3710e,
-                0 2px 0 #966908,
-                0 3px 0 #8a6108,
-                0 4px 0 #7a5607,
-                0 5px 0 #6a4b06,
-                0 6px 1px rgba(0,0,0,0.1),
-                0 0 5px rgba(0,0,0,0.1),
-                0 1px 3px rgba(0,0,0,0.3),
-                0 3px 5px rgba(0,0,0,0.3),
-                0 5px 10px rgba(0,0,0,0.35),
-                0 10px 18px rgba(0,0,0,0.45),
-                0 0 40px rgba(214, 144, 35, 0.35);
-            transform: perspective(600px) rotateX(6deg);
+                0 2px 6px rgba(0,0,0,0.45),
+                0 6px 20px rgba(0,0,0,0.55),
+                0 0 40px rgba(214, 144, 35, 0.18);
         }
-
-        /* ===== 3D TILT CARDS ===== */
-        .card {
-            transform-style: preserve-3d;
-            transition: transform 0.18s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.3s, border-color 0.3s;
+        .hero .trust-strip {
+            margin-top: 22px;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            letter-spacing: 0.4px;
         }
-        .card .card-body, .card .product-img, .card .card-image-placeholder {
-            transform: translateZ(0);
-            transition: transform 0.3s;
-        }
-        .card:hover .product-img, .card:hover .card-image-placeholder { transform: translateZ(20px); }
-        .card:hover .card-body { transform: translateZ(10px); }
-        .card:hover {
-            box-shadow: 0 25px 60px rgba(0,0,0,0.55), 0 0 30px rgba(214,144,35,0.18);
+        .hero .trust-strip .dot { opacity: 0.5; margin: 0 8px; }
+        .guarantee-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 14px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(214, 144, 35, 0.1);
+            border: 1px solid rgba(214, 144, 35, 0.35);
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 600;
         }
 
         /* ===== SCROLL REVEAL ===== */
         .reveal {
             opacity: 0;
-            transform: translateY(44px);
-            transition: opacity 0.9s cubic-bezier(0.2,0.8,0.2,1), transform 0.9s cubic-bezier(0.2,0.8,0.2,1);
+            transform: translateY(32px);
+            transition: opacity 0.7s cubic-bezier(0.2,0.8,0.2,1), transform 0.7s cubic-bezier(0.2,0.8,0.2,1);
             will-change: transform, opacity;
         }
         .reveal.is-visible { opacity: 1; transform: translateY(0); }
-        .reveal.delay-1 { transition-delay: 0.08s; }
-        .reveal.delay-2 { transition-delay: 0.16s; }
-        .reveal.delay-3 { transition-delay: 0.24s; }
-
-        /* ===== GLOW CTAs ===== */
-        .btn {
-            position: relative;
-            overflow: hidden;
-            isolation: isolate;
-            box-shadow: 0 0 0 0 rgba(214,144,35,0);
-        }
-        .btn::before {
-            content: "";
-            position: absolute;
-            inset: -50%;
-            background: conic-gradient(from 0deg, rgba(255,200,100,0) 0%, rgba(255,200,100,0.55) 20%, rgba(255,200,100,0) 40%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: -1;
-            animation: spinCta 2.8s linear infinite;
-        }
-        .btn:hover { box-shadow: 0 12px 28px rgba(214,144,35,0.45), 0 0 40px rgba(214,144,35,0.3); }
-        .btn:hover::before { opacity: 1; }
-        @keyframes spinCta { to { transform: rotate(360deg); } }
+        .reveal.delay-1 { transition-delay: 0.06s; }
+        .reveal.delay-2 { transition-delay: 0.12s; }
+        .reveal.delay-3 { transition-delay: 0.18s; }
 
         /* ===== ANIMATED FLAME (replaces 🔥) ===== */
-        .flame-svg { width: 64px; height: 76px; margin: 0 auto 10px; display: block; filter: drop-shadow(0 6px 14px rgba(255,120,30,0.35)); }
+        .flame-svg { width: 56px; height: 66px; margin: 0 auto 10px; display: block; filter: drop-shadow(0 4px 10px rgba(255,120,30,0.3)); }
         .flame-core { animation: flicker 0.55s ease-in-out infinite alternate; transform-origin: center bottom; transform-box: fill-box; }
         .flame-outer { animation: flicker 0.75s ease-in-out infinite alternate-reverse; transform-origin: center bottom; transform-box: fill-box; }
         @keyframes flicker {
             from { transform: scaleY(1) translateY(0); opacity: 0.9; }
-            to   { transform: scaleY(1.1) translateY(-2px); opacity: 1; }
+            to   { transform: scaleY(1.08) translateY(-2px); opacity: 1; }
         }
 
-        /* ===== STACKING: content above smoke, below nav ===== */
+        /* ===== STACKING: content above hero smoke, below nav ===== */
         .nav { z-index: 100; }
         .hero, main, section, footer { position: relative; z-index: 2; }
+        .hero-content { position: relative; z-index: 2; }
         .toast { z-index: 200; }
 
-        /* ===== PARALLAX FLOATS inside hero (decor) ===== */
-        .hero-decor {
-            position: absolute;
-            pointer-events: none;
-            opacity: 0.22;
-            filter: blur(1px) drop-shadow(0 4px 10px rgba(0,0,0,0.4));
-            will-change: transform;
+        /* ===== FAQ ===== */
+        .faq-list { display: flex; flex-direction: column; gap: 10px; }
+        .faq-item {
+            background: rgba(35, 25, 19, 0.7);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0 18px;
+            transition: border-color .2s;
         }
-        .hero-decor.d1 { left: 8%;  top: 22%; font-size: 5rem; }
-        .hero-decor.d2 { right: 10%; top: 30%; font-size: 4rem; }
-        .hero-decor.d3 { left: 14%; bottom: 18%; font-size: 3.2rem; }
+        .faq-item[open] { border-color: var(--accent); }
+        .faq-item summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 16px 0;
+            font-weight: 600;
+            color: var(--text-main);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary::after {
+            content: "+";
+            color: var(--accent);
+            font-size: 1.4rem;
+            font-weight: 400;
+            transition: transform .2s;
+            line-height: 1;
+        }
+        .faq-item[open] summary::after { content: "−"; }
+        .faq-item p {
+            color: var(--text-muted);
+            padding: 0 0 18px;
+            font-size: 0.96rem;
+            line-height: 1.6;
+        }
+        .faq-item a { color: var(--accent); text-decoration: none; }
+        .faq-item a:hover { text-decoration: underline; }
+
+        /* ===== STICKY MOBILE CTA BAR ===== */
+        .mobile-cta {
+            display: none;
+            position: fixed;
+            left: 0; right: 0; bottom: 0;
+            background: rgba(15, 10, 7, 0.97);
+            border-top: 1px solid var(--border);
+            padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+            gap: 8px;
+            z-index: 150;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .mobile-cta a {
+            flex: 1;
+            text-align: center;
+            padding: 12px 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+        }
+        .mobile-cta .m-call { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
+        .mobile-cta .m-order { background: var(--accent); color: #1a1411; }
+        @media (max-width: 768px) {
+            .mobile-cta { display: flex; }
+            body { padding-bottom: 80px; }
+        }
 
         /* TOAST */
         .toast {
@@ -736,132 +715,11 @@
 </head>
 <body>
 
-    <!-- ===== FULL-PAGE SMOKE LAYER ===== -->
-    <div class="smoke-layer" aria-hidden="true">
-        <svg class="smoke-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-            <defs>
-                <filter id="smokeTurb" x="-20%" y="-20%" width="140%" height="140%">
-                    <feTurbulence type="fractalNoise" baseFrequency="0.008 0.014" numOctaves="2" seed="7">
-                        <animate attributeName="baseFrequency" dur="55s"
-                                 values="0.008 0.014; 0.012 0.02; 0.008 0.014" repeatCount="indefinite"/>
-                    </feTurbulence>
-                    <feColorMatrix values="0 0 0 0 0.9
-                                           0 0 0 0 0.9
-                                           0 0 0 0 0.9
-                                           0 0 0 0.11 0"/>
-                </filter>
-                <radialGradient id="smokeVignette" cx="50%" cy="55%" r="75%">
-                    <stop offset="0%" stop-color="white" stop-opacity="1"/>
-                    <stop offset="60%" stop-color="white" stop-opacity="0.6"/>
-                    <stop offset="100%" stop-color="white" stop-opacity="0"/>
-                </radialGradient>
-                <mask id="smokeMask">
-                    <rect width="100%" height="100%" fill="url(#smokeVignette)"/>
-                </mask>
-            </defs>
-            <rect width="100%" height="100%" filter="url(#smokeTurb)" mask="url(#smokeMask)"/>
-        </svg>
-        <div class="smoke-blob"></div>
-        <div class="smoke-blob"></div>
-        <div class="smoke-blob"></div>
-        <div class="smoke-blob"></div>
-        <div class="smoke-blob"></div>
-    </div>
-
-    <!-- ===== SMOKER MASCOT ===== -->
-    <div class="smoker" aria-hidden="true">
-        <svg class="smoker-svg" viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <linearGradient id="barrelGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%"  stop-color="#4a3224"/>
-                    <stop offset="45%" stop-color="#2a1a0f"/>
-                    <stop offset="100%" stop-color="#120a05"/>
-                </linearGradient>
-                <radialGradient id="barrelHighlight" cx="40%" cy="30%" r="50%">
-                    <stop offset="0%" stop-color="rgba(255,220,170,0.25)"/>
-                    <stop offset="100%" stop-color="rgba(255,220,170,0)"/>
-                </radialGradient>
-                <linearGradient id="fireGrad" x1="0" y1="1" x2="0" y2="0">
-                    <stop offset="0%"  stop-color="#ff4a0f"/>
-                    <stop offset="55%" stop-color="#ffb547"/>
-                    <stop offset="100%" stop-color="#fff1a8"/>
-                </linearGradient>
-                <radialGradient id="wheelGrad" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%"  stop-color="#3a2614"/>
-                    <stop offset="80%" stop-color="#0e0805"/>
-                </radialGradient>
-                <radialGradient id="emberGlow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%"  stop-color="rgba(255,180,60,0.9)"/>
-                    <stop offset="100%" stop-color="rgba(255,120,20,0)"/>
-                </radialGradient>
-            </defs>
-
-            <!-- Chimney smoke puffs (behind body) -->
-            <g>
-                <circle class="chimney-puff" cx="244" cy="42" r="14" fill="rgba(220,220,220,0.55)"/>
-                <circle class="chimney-puff" cx="244" cy="42" r="18" fill="rgba(220,220,220,0.42)"/>
-                <circle class="chimney-puff" cx="244" cy="42" r="11" fill="rgba(220,220,220,0.6)"/>
-            </g>
-
-            <g class="smoker-body">
-                <!-- Cart frame -->
-                <rect x="50" y="176" width="220" height="6" rx="2" fill="#1d1208"/>
-                <rect x="52" y="168" width="8"   height="20" fill="#2a1a0f"/>
-                <rect x="260" y="168" width="8"  height="20" fill="#2a1a0f"/>
-
-                <!-- Barrel body -->
-                <ellipse cx="160" cy="130" rx="115" ry="58" fill="url(#barrelGrad)"/>
-                <ellipse cx="160" cy="130" rx="115" ry="58" fill="url(#barrelHighlight)"/>
-                <!-- Dark rim on left -->
-                <ellipse cx="45"  cy="130" rx="10" ry="58" fill="#0a0604"/>
-                <!-- Lid seam -->
-                <path d="M 50 112 Q 160 92 270 112" stroke="#6a4323" stroke-width="2" fill="none" opacity="0.7"/>
-                <!-- Handle on lid -->
-                <rect x="148" y="80" width="24" height="4" rx="2" fill="#1c120a"/>
-                <path d="M 150 82 Q 160 70 170 82" stroke="#d0a45a" stroke-width="3" fill="none" stroke-linecap="round"/>
-
-                <!-- Door -->
-                <rect x="128" y="118" width="64" height="44" rx="4" fill="#140b06" stroke="#5a3820" stroke-width="1.5"/>
-                <rect x="132" y="122" width="56" height="36" rx="2" fill="none" stroke="#3a2614" stroke-width="1"/>
-                <circle cx="184" cy="140" r="2.5" fill="#d0a45a"/>
-
-                <!-- Vent (fire glow) -->
-                <g class="fire-layer">
-                    <rect x="136" y="142" width="48" height="16" rx="3" fill="url(#fireGrad)"/>
-                    <path d="M 144 158 Q 150 144 156 152 Q 162 140 168 152 Q 174 144 180 158 Z" fill="#ffd067" opacity="0.95"/>
-                    <circle cx="160" cy="150" r="14" fill="url(#emberGlow)" opacity="0.8"/>
-                </g>
-
-                <!-- Chimney -->
-                <rect x="232" y="55" width="22" height="62" fill="#1c120a"/>
-                <rect x="228" y="48" width="30" height="10" rx="1" fill="#2a1a0f"/>
-                <rect x="234" y="55" width="6"  height="62" fill="#2e1d10" opacity="0.8"/>
-
-                <!-- Temperature gauge -->
-                <circle cx="80" cy="135" r="13" fill="#0e0704" stroke="#caa050" stroke-width="1.8"/>
-                <circle cx="80" cy="135" r="9"  fill="#1a1108"/>
-                <line x1="80" y1="135" x2="86" y2="130" stroke="#d0a45a" stroke-width="2" stroke-linecap="round"/>
-                <circle cx="80" cy="135" r="1.5" fill="#d0a45a"/>
-
-                <!-- Wheels -->
-                <g>
-                    <circle cx="80" cy="198" r="24" fill="url(#wheelGrad)" stroke="#1c120a" stroke-width="2"/>
-                    <g class="wheel-spoke">
-                        <circle cx="80" cy="198" r="9" fill="#3a2614"/>
-                        <rect x="78" y="178" width="4" height="40" fill="#2a1a0f"/>
-                        <rect x="60" y="196" width="40" height="4" fill="#2a1a0f"/>
-                    </g>
-                </g>
-                <g>
-                    <circle cx="240" cy="198" r="24" fill="url(#wheelGrad)" stroke="#1c120a" stroke-width="2"/>
-                    <g class="wheel-spoke">
-                        <circle cx="240" cy="198" r="9" fill="#3a2614"/>
-                        <rect x="238" y="178" width="4" height="40" fill="#2a1a0f"/>
-                        <rect x="220" y="196" width="40" height="4" fill="#2a1a0f"/>
-                    </g>
-                </g>
-            </g>
-        </svg>
+    <!-- Subtle hero smoke (3 drifting blobs, hero-only) -->
+    <div class="hero-smoke" aria-hidden="true">
+        <span class="hero-smoke-blob"></span>
+        <span class="hero-smoke-blob"></span>
+        <span class="hero-smoke-blob"></span>
     </div>
 
     <!-- NAV -->
@@ -873,6 +731,7 @@
                 <a href="#products">Продукція</a>
                 <a href="#how">Як ми коптимо</a>
                 <a href="#order">Замовлення</a>
+                <a href="#faq">FAQ</a>
                 <a class="nav-phone" href="tel:+380979318260">+380 97 931 82 60</a>
             </div>
         </div>
@@ -880,17 +739,15 @@
 
     <!-- HERO -->
     <header class="hero" id="top">
-        <span class="hero-decor d1" aria-hidden="true">🔥</span>
-        <span class="hero-decor d2" aria-hidden="true">🌲</span>
-        <span class="hero-decor d3" aria-hidden="true">🏔️</span>
         <div class="hero-content">
-            <h1 class="reveal">ДИМ І ГОРИ</h1>
-            <div class="subtitle reveal delay-1">Натуральне копчення з Прикарпаття</div>
-            <p class="reveal delay-2">Справжній дим бука, яблуні та вишні. Традиційні гуцульські рецепти без хімії. Свіжа продукція щодня з Гошева, Івано-Франківщина.</p>
+            <h1 class="reveal">Копчені ребра і ковбаси з&nbsp;Карпат</h1>
+            <div class="subtitle reveal delay-1">Натуральне копчення на буку, яблуні та вишні</div>
+            <p class="reveal delay-2">Коптимо 8–12 годин у сімейній коптильні у&nbsp;с.&nbsp;Гошів на Івано-Франківщині. Без рідкого диму, нітритів і консервантів. Партії двічі на тиждень — їсте свіже. Доставка Новою поштою 1–2 дні.</p>
             <div class="hero-actions reveal delay-3">
-                <a href="#order" class="btn">Замовити зараз</a>
-                <a href="tel:+380979318260" class="hero-phone-btn">📞 +380 97 931 82 60</a>
+                <a href="#order" class="btn">Замовити копченості</a>
+                <a href="tel:+380979318260" class="hero-phone-btn">📞 Подзвонити (9:00–20:00)</a>
             </div>
+            <div class="guarantee-badge reveal delay-3">✓ Гарантія свіжості — або повертаємо гроші</div>
         </div>
     </header>
 
@@ -1036,36 +893,40 @@
         </div>
     </section>
 
-    <!-- REVIEWS -->
-    <section class="section-pad">
-        <div class="container">
-            <h2 class="reveal">Відгуки</h2>
+    <!-- FAQ -->
+    <section class="section-pad" id="faq">
+        <div class="container" style="max-width: 780px;">
+            <h2 class="reveal">Часті запитання</h2>
             <div class="accent-line reveal"></div>
-            <div class="reviews-grid">
-                <div class="review-card">
-                    <div class="stars" aria-label="5 з 5">★★★★★</div>
-                    <p class="review-text">«Замовляю вже третій раз — смак просто бомба! Реальний карпатський дим, а не ароматизатори.»</p>
-                    <div class="review-author">Оксана М.</div>
-                    <div class="review-geo">Львів</div>
-                </div>
-                <div class="review-card">
-                    <div class="stars" aria-label="5 з 5">★★★★★</div>
-                    <p class="review-text">«Підчеревина тане в роті. Доставка Новою поштою дійсно швидка, усе прийшло свіжим.»</p>
-                    <div class="review-author">Андрій К.</div>
-                    <div class="review-geo">Київ</div>
-                </div>
-                <div class="review-card">
-                    <div class="stars" aria-label="5 з 5">★★★★★</div>
-                    <p class="review-text">«Нарешті знайшла копченості без хімії! Дітям даю — і не переживаю за склад.»</p>
-                    <div class="review-author">Марія Л.</div>
-                    <div class="review-geo">Івано-Франківськ</div>
-                </div>
-                <div class="review-card">
-                    <div class="stars" aria-label="5 з 5">★★★★★</div>
-                    <p class="review-text">«Реберця на день народження замість торта — всі були в захваті. Беру ще.»</p>
-                    <div class="review-author">Тарас В.</div>
-                    <div class="review-geo">Тернопіль</div>
-                </div>
+            <div class="faq-list">
+                <details class="faq-item reveal">
+                    <summary>Який мінімальний заказ і вартість доставки?</summary>
+                    <p>Мінімальне замовлення — 2 кг (у будь-якому поєднанні продуктів). Доставка Новою поштою — 80–150 грн залежно від ваги. Від 4 кг — доставка за наш рахунок.</p>
+                </details>
+                <details class="faq-item reveal">
+                    <summary>Скільки і як правильно зберігати?</summary>
+                    <p>У вакуумній упаковці при +4 °C — до 21 дня. Після відкриття — 5 днів у холодильнику. Можна заморозити до 3 місяців без втрати смаку.</p>
+                </details>
+                <details class="faq-item reveal">
+                    <summary>Які способи оплати?</summary>
+                    <p>Накладений платіж Новою поштою, переказ на картку ФОП, готівка при самовивозі з коптильні. Оплата після підтвердження замовлення дзвінком.</p>
+                </details>
+                <details class="faq-item reveal">
+                    <summary>Як часто готуєте нові партії?</summary>
+                    <p>Двічі на тиждень — вівторок і п'ятницю. Приймаємо замовлення за 1 день до копчення. Без заморозки та складських залишків — лише свіже.</p>
+                </details>
+                <details class="faq-item reveal">
+                    <summary>Чи є сертифікати якості?</summary>
+                    <p>Так. ФОП офіційно зареєстрований, продукція проходить ветеринарний контроль. Скан свідоцтв надсилаємо за запитом у месенджері.</p>
+                </details>
+                <details class="faq-item reveal">
+                    <summary>Що входить у склад?</summary>
+                    <p>Тільки м'ясо (свинина/курка/риба), сіль, натуральні спеції та трави. Без рідкого диму, нітритів, сої, глутамату і консервантів.</p>
+                </details>
+                <details class="faq-item reveal">
+                    <summary>Можна приїхати до коптильні?</summary>
+                    <p>Так, самовивіз з Гошева (Івано-Франківська обл.) за попередньою домовленістю по телефону — зустрінемо, покажемо, пригостимо чаєм. <a href="https://www.google.com/maps/search/?api=1&amp;query=%D0%93%D0%BE%D1%88%D1%96%D0%B2+%D0%86%D0%B2%D0%B0%D0%BD%D0%BE-%D0%A4%D1%80%D0%B0%D0%BD%D0%BA%D1%96%D0%B2%D1%81%D1%8C%D0%BA%D0%B0+%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C" target="_blank" rel="noopener">📍 Відкрити на мапі</a></p>
+                </details>
             </div>
         </div>
     </section>
@@ -1091,16 +952,18 @@
                     <div class="form-row">
                         <div>
                             <label for="f-name">Ваше ім'я</label>
-                            <input id="f-name" name="name" type="text" placeholder="Як до вас звертатись" required>
+                            <input id="f-name" name="name" type="text" placeholder="Як до вас звертатись"
+                                   autocomplete="name" required>
                         </div>
                         <div>
                             <label for="f-phone">Телефон</label>
-                            <input id="f-phone" name="phone" type="tel" placeholder="+380 __ ___ __ __" required>
+                            <input id="f-phone" name="phone" type="tel" placeholder="+380 97 123 45 67"
+                                   inputmode="tel" autocomplete="tel" required>
                         </div>
                     </div>
 
-                    <label for="f-note">Коментар (опційно)</label>
-                    <textarea id="f-note" name="note" rows="3" placeholder="Кількість, місто доставки, побажання..."></textarea>
+                    <label for="f-note">Коментар — кількість кг, місто доставки (опційно)</label>
+                    <textarea id="f-note" name="note" rows="3" placeholder="Наприклад: реберця 2 кг, підчеревина 1 кг, відділення НП №5 у Львові"></textarea>
 
                     <div class="form-actions">
                         <button type="submit" class="btn">Надіслати замовлення</button>
@@ -1138,9 +1001,9 @@
                 </div>
                 <div class="footer-col">
                     <h3>Адреса</h3>
-                    <p>📍 с. Гошів</p>
-                    <p>Івано-Франківська область</p>
+                    <p><a href="https://www.google.com/maps/search/?api=1&amp;query=%D0%93%D0%BE%D1%88%D1%96%D0%B2+%D0%86%D0%B2%D0%B0%D0%BD%D0%BE-%D0%A4%D1%80%D0%B0%D0%BD%D0%BA%D1%96%D0%B2%D1%81%D1%8C%D0%BA%D0%B0+%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C" target="_blank" rel="noopener">📍 с. Гошів, Івано-Франківська обл.</a></p>
                     <p>Самовивіз з коптильні — за попередньою домовленістю</p>
+                    <p style="margin-top:8px;"><a href="https://www.google.com/maps/search/?api=1&amp;query=%D0%93%D0%BE%D1%88%D1%96%D0%B2+%D0%86%D0%B2%D0%B0%D0%BD%D0%BE-%D0%A4%D1%80%D0%B0%D0%BD%D0%BA%D1%96%D0%B2%D1%81%D1%8C%D0%BA%D0%B0+%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C" target="_blank" rel="noopener" style="color:var(--accent);">Прокласти маршрут →</a></p>
                 </div>
                 <div class="footer-col">
                     <h3>Слідкуйте</h3>
@@ -1154,6 +1017,12 @@
             <div class="copyright">© <span id="year"></span> Дим і Гори. Натуральне копчення з Прикарпаття.</div>
         </div>
     </footer>
+
+    <!-- Sticky mobile CTA -->
+    <div class="mobile-cta" aria-hidden="false">
+        <a href="tel:+380979318260" class="m-call">📞 Подзвонити</a>
+        <a href="#order" class="m-order">🛒 Замовити</a>
+    </div>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -1243,52 +1112,15 @@
             targets.forEach(el => io.observe(el));
         })();
 
-        // ===== 3D CARD TILT (pointer) =====
+        // ===== Hide mobile sticky CTA when near the order form =====
         (function() {
-            const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-            if (!fine) return;
-            document.querySelectorAll('.card').forEach(card => {
-                let rect;
-                card.addEventListener('pointerenter', () => { rect = card.getBoundingClientRect(); });
-                card.addEventListener('pointermove', (ev) => {
-                    if (!rect) rect = card.getBoundingClientRect();
-                    const x = (ev.clientX - rect.left) / rect.width;
-                    const y = (ev.clientY - rect.top) / rect.height;
-                    const rx = (0.5 - y) * 10;
-                    const ry = (x - 0.5) * 12;
-                    card.style.transform = `perspective(900px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateY(-6px) scale(1.02)`;
-                });
-                card.addEventListener('pointerleave', () => {
-                    card.style.transform = '';
-                    rect = null;
-                });
-            });
-        })();
-
-        // ===== SCROLL PARALLAX (hero decor + about watermark) =====
-        (function() {
-            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            if (reduce) return;
-            const decors = Array.from(document.querySelectorAll('.hero-decor'));
-            const aboutSection = document.querySelector('.about');
-            let ticking = false;
-            function update() {
-                const y = window.scrollY;
-                decors.forEach((el, i) => {
-                    const speed = [0.18, 0.32, 0.22][i] || 0.2;
-                    el.style.transform = `translate3d(0, ${(y * speed).toFixed(1)}px, 0)`;
-                });
-                if (aboutSection) {
-                    const r = aboutSection.getBoundingClientRect();
-                    const off = (window.innerHeight - r.top) * 0.08;
-                    aboutSection.style.setProperty('--about-parallax', `${off.toFixed(1)}px`);
-                }
-                ticking = false;
-            }
-            window.addEventListener('scroll', () => {
-                if (!ticking) { requestAnimationFrame(update); ticking = true; }
-            }, { passive: true });
-            update();
+            const bar = document.querySelector('.mobile-cta');
+            const order = document.getElementById('order');
+            if (!bar || !order) return;
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(e => { bar.style.display = e.isIntersecting ? 'none' : ''; });
+            }, { rootMargin: '-20% 0px -20% 0px' });
+            io.observe(order);
         })();
     </script>
 </body>
