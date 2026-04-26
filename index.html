@@ -960,12 +960,33 @@
                     </div>
                 </article>
 
-                <article class="card reveal delay-1" data-product="Перепілки / курята копчені" data-price="700">
-                    <img src="kury.jpg" alt="Копчені перепілки з золотистою кірочкою" class="product-img" loading="lazy">
+                <article class="card reveal delay-1 card-variants" data-variants-card data-gallery>
+                    <img src="kury.jpg" alt="Копчені перепілки з золотистою кірочкою" class="product-img product-img-main" loading="lazy">
+                    <div class="thumb-row">
+                        <button type="button" class="thumb is-active" data-src="kury.jpg" aria-label="Фото 1 — перепілки">
+                            <img src="kury.jpg" alt="" loading="lazy">
+                        </button>
+                        <button type="button" class="thumb" data-src="kuryata.jpg" aria-label="Фото 2 — кури">
+                            <img src="kuryata.jpg" alt="" loading="lazy">
+                        </button>
+                    </div>
                     <div class="card-body">
-                        <h3>Перепілки копчені</h3>
-                        <p>Мініатюрні перепілки або курята з золотистою кірочкою. Ідеальна закуска, яка тане в роті.</p>
-                        <span class="price">700 грн/кг</span>
+                        <h3>Перепілки / кури копчені</h3>
+                        <p>Золотиста хрустка кірочка, ніжне ароматне м'ясо. Оберіть варіант нижче.</p>
+                        <span class="price">від 300 грн/кг</span>
+                        <button type="button" class="variant-toggle" aria-expanded="false" aria-controls="poultry-options">
+                            Обрати тип <span class="variant-caret" aria-hidden="true">▾</span>
+                        </button>
+                        <div class="variant-options" id="poultry-options" hidden>
+                            <button type="button" class="variant-opt" data-product="Перепілки копчені" data-price="700">
+                                <span class="variant-name">Перепілки</span>
+                                <span class="variant-price">700 грн/кг</span>
+                            </button>
+                            <button type="button" class="variant-opt" data-product="Кури копчені" data-price="300">
+                                <span class="variant-name">Кури</span>
+                                <span class="variant-price">300 грн/кг</span>
+                            </button>
+                        </div>
                     </div>
                 </article>
 
@@ -1168,7 +1189,8 @@
                     <div class="product-picker" id="product-picker">
                         <label class="product-check"><input type="checkbox" name="product" value="Реберця копчені (смужки)">Реберця (смужки)</label>
                         <label class="product-check"><input type="checkbox" name="product" value="Грубі ребра копчені">Грубі ребра</label>
-                        <label class="product-check"><input type="checkbox" name="product" value="Перепілки / курята копчені">Перепілки / курята</label>
+                        <label class="product-check"><input type="checkbox" name="product" value="Перепілки копчені">Перепілки</label>
+                        <label class="product-check"><input type="checkbox" name="product" value="Кури копчені">Кури</label>
                         <label class="product-check"><input type="checkbox" name="product" value="Риба скумбрія копчена">Риба скумбрія</label>
                         <label class="product-check"><input type="checkbox" name="product" value="Риба форель червона копчена">Риба форель червона</label>
                         <label class="product-check"><input type="checkbox" name="product" value="Риба форель біла копчена">Риба форель біла</label>
