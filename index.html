@@ -319,8 +319,23 @@
             background: rgba(35, 25, 19, 0.7);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 28px 20px;
             text-align: center;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .step-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 2px solid var(--accent);
+        }
+        .step-body {
+            padding: 24px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
         .step-number {
             background: var(--accent);
@@ -332,7 +347,7 @@
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            margin-bottom: 15px;
+            margin: 0 auto 14px;
         }
         .icon-small { font-size: 2.4rem; margin-bottom: 10px; display: block; }
 
@@ -884,28 +899,36 @@
             <div class="accent-line reveal"></div>
             <div class="steps-grid">
                 <div class="step">
-                    <span class="step-number">01</span>
-                    <span class="icon-small" aria-hidden="true">🥩</span>
-                    <h3>Відбір м'яса</h3>
-                    <p>Найсвіжіше м'ясо від перевірених фермерів Прикарпаття.</p>
+                    <img src="step-meat.jpg" alt="Свіже м'ясо від фермерів Прикарпаття" class="step-img" loading="lazy">
+                    <div class="step-body">
+                        <span class="step-number">01</span>
+                        <h3>Відбір м'яса</h3>
+                        <p>Найсвіжіше м'ясо від перевірених фермерів Прикарпаття.</p>
+                    </div>
                 </div>
                 <div class="step">
-                    <span class="step-number">02</span>
-                    <span class="icon-small" aria-hidden="true">🌿</span>
-                    <h3>Засолювання</h3>
-                    <p>Натираємо натуральними спеціями та сіллю. Витримуємо для насиченого смаку.</p>
+                    <img src="step-salt.jpg" alt="М'ясо натерте сіллю та спеціями" class="step-img" loading="lazy">
+                    <div class="step-body">
+                        <span class="step-number">02</span>
+                        <h3>Засолювання</h3>
+                        <p>Натираємо натуральними спеціями та сіллю. Витримуємо для насиченого смаку.</p>
+                    </div>
                 </div>
                 <div class="step">
-                    <span class="step-number">03</span>
-                    <span class="icon-small" aria-hidden="true">🔥</span>
-                    <h3>Копчення</h3>
-                    <p>На деревині бука, яблуні та вишні — без рідкого диму та хімії.</p>
+                    <img src="step-smoke.jpg" alt="Дрова бука, яблуні та вишні у вогнищі коптильні" class="step-img" loading="lazy">
+                    <div class="step-body">
+                        <span class="step-number">03</span>
+                        <h3>Копчення</h3>
+                        <p>На деревині бука, яблуні та вишні — без рідкого диму та хімії.</p>
+                    </div>
                 </div>
                 <div class="step">
-                    <span class="step-number">04</span>
-                    <span class="icon-small" aria-hidden="true">📦</span>
-                    <h3>Упаковка</h3>
-                    <p>Вакуумна упаковка для збереження смаку й аромату під час доставки.</p>
+                    <img src="step-pack.jpg" alt="Вакуумно упаковане копчене м'ясо для доставки" class="step-img" loading="lazy">
+                    <div class="step-body">
+                        <span class="step-number">04</span>
+                        <h3>Упаковка</h3>
+                        <p>Вакуумна упаковка для збереження смаку й аромату під час доставки.</p>
+                    </div>
                 </div>
             </div>
         </div>
