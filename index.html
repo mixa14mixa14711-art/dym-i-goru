@@ -1058,8 +1058,27 @@
                         </div>
                     </div>
 
-                    <label for="f-note">Коментар — кількість кг, місто доставки (опційно)</label>
-                    <textarea id="f-note" name="note" rows="3" placeholder="Наприклад: реберця 2 кг, підчеревина 1 кг, відділення НП №5 у Львові"></textarea>
+                    <label>Доставка</label>
+                    <div class="product-picker" id="delivery-picker" role="radiogroup" aria-label="Спосіб доставки">
+                        <label class="product-check"><input type="radio" name="delivery" value="np" checked>📦 Нова Пошта</label>
+                        <label class="product-check"><input type="radio" name="delivery" value="pickup">🏠 Самовивіз з Гошева</label>
+                    </div>
+
+                    <div id="np-fields" class="form-row">
+                        <div>
+                            <label for="f-city">Місто / населений пункт</label>
+                            <input id="f-city" name="city" type="text" placeholder="Наприклад: Львів"
+                                   autocomplete="address-level2">
+                        </div>
+                        <div>
+                            <label for="f-branch">Відділення / поштомат НП</label>
+                            <input id="f-branch" name="branch" type="text" placeholder="Наприклад: №5 або поштомат №3"
+                                   inputmode="numeric">
+                        </div>
+                    </div>
+
+                    <label for="f-note">Коментар — кількість кг, побажання (опційно)</label>
+                    <textarea id="f-note" name="note" rows="3" placeholder="Наприклад: реберця 2 кг, підчеревина 1 кг, передзвоніть після 18:00"></textarea>
 
                     <div class="form-actions">
                         <button type="submit" class="btn">Надіслати замовлення</button>
@@ -1140,7 +1159,7 @@
             card.addEventListener('click', (e) => {
                 if (e.target.closest('a,button')) return;
                 const product = card.getAttribute('data-product');
-                document.querySelectorAll('.product-check input').forEach(cb => {
+                document.querySelectorAll('.product-check input[name="product"]').forEach(cb => {
                     if (cb.value === product) {
                         cb.checked = true;
                         cb.dispatchEvent(new Event('change'));
@@ -1160,6 +1179,22 @@
             toastTimer = setTimeout(() => toastEl.classList.remove('show'), 3500);
         }
 
+        // Toggle Nova Poshta city/branch fields based on delivery choice
+        (function() {
+            const npFields = document.getElementById('np-fields');
+            const cityInput = document.getElementById('f-city');
+            const branchInput = document.getElementById('f-branch');
+            function applyDelivery() {
+                const val = (document.querySelector('input[name="delivery"]:checked') || {}).value;
+                const isNp = val === 'np';
+                npFields.style.display = isNp ? '' : 'none';
+                cityInput.required = isNp;
+                branchInput.required = isNp;
+            }
+            document.querySelectorAll('input[name="delivery"]').forEach(r => r.addEventListener('change', applyDelivery));
+            applyDelivery();
+        })();
+
         // Order form submit -> open WhatsApp/Viber prefilled
         const PHONE_INTL = '380979318260';
         document.getElementById('order-form').addEventListener('submit', (e) => {
@@ -1167,11 +1202,20 @@
             const name = document.getElementById('f-name').value.trim();
             const phone = document.getElementById('f-phone').value.trim();
             const note = document.getElementById('f-note').value.trim();
-            const products = Array.from(document.querySelectorAll('.product-check input:checked')).map(cb => cb.value);
+            const city = document.getElementById('f-city').value.trim();
+            const branch = document.getElementById('f-branch').value.trim();
+            const delivery = (document.querySelector('input[name="delivery"]:checked') || {}).value || 'np';
+            const products = Array.from(document.querySelectorAll('.product-check input[name="product"]:checked')).map(cb => cb.value);
 
             if (!name) { showToast("Вкажіть, будь ласка, ваше ім'я"); return; }
             if (!phone) { showToast('Вкажіть, будь ласка, номер телефону'); return; }
             if (products.length === 0) { showToast('Оберіть хоча б один товар'); return; }
+            if (delivery === 'np' && !city) { showToast('Вкажіть місто для Нової Пошти'); return; }
+            if (delivery === 'np' && !branch) { showToast('Вкажіть відділення / поштомат НП'); return; }
+
+            const deliveryText = delivery === 'np'
+                ? 'Нова Пошта — ' + city + ', відділення ' + branch
+                : 'Самовивіз з Гошева';
 
             const lines = [
                 'Нове замовлення з сайту «Дим і Гори»',
@@ -1179,6 +1223,7 @@
                 'Імʼя: ' + name,
                 'Телефон: ' + phone,
                 'Продукція: ' + products.join(', '),
+                'Доставка: ' + deliveryText,
             ];
             if (note) { lines.push('Коментар: ' + note); }
             const msg = lines.join('\n');
