@@ -491,9 +491,22 @@
         /* TIKTOK */
         .tiktok-block {
             text-align: center;
-            padding: 80px 20px;
-            background: linear-gradient(180deg, transparent, rgba(214, 144, 35, 0.08), transparent);
+            padding: 100px 20px;
+            position: relative;
+            overflow: hidden;
+            background-image:
+                linear-gradient(rgba(15, 10, 7, 0.78), rgba(15, 10, 7, 0.85)),
+                url('smoker-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
+        @media (min-width: 900px) {
+            .tiktok-block { background-attachment: fixed; }
+        }
+        .tiktok-block .container { position: relative; z-index: 1; }
+        .tiktok-block h2 { text-shadow: 0 2px 12px rgba(0,0,0,0.6); }
+        .tiktok-block p { text-shadow: 0 1px 8px rgba(0,0,0,0.6); }
         .tiktok-btn {
             display: inline-flex;
             align-items: center;
@@ -505,9 +518,10 @@
             font-weight: 700;
             text-decoration: none;
             margin-top: 10px;
-            transition: transform .25s;
+            transition: transform .25s, box-shadow .25s;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
         }
-        .tiktok-btn:hover { transform: translateY(-2px); }
+        .tiktok-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(214, 144, 35, 0.4); }
 
         /* FOOTER */
         footer {
