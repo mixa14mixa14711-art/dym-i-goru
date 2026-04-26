@@ -2,15 +2,20 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" lang="uk">
-    <title>Дим і Гори | Натуральне копчення</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дим і Гори | Натуральне копчення з Прикарпаття</title>
+    <meta name="description" content="Сімейна коптильня з Гошева, Івано-Франківщина. Копчене м'ясо, ребра, сало, ковбаси, риба — натуральне копчення на буку, яблуні та вишні. Замовлення з доставкою по Україні.">
+    <meta property="og:title" content="Дим і Гори — Натуральне копчення з Прикарпаття">
+    <meta property="og:description" content="Справжній дим бука, яблуні та вишні. Традиційні гуцульські рецепти без хімії.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='28'%3E🔥%3C/text%3E%3C/svg%3E">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #19120e;
             --card-bg: #231913;
             --accent: #D69023;
+            --accent-hover: #E8A43A;
             --text-main: #E8E0D2;
             --text-muted: #A89B8D;
             --border: rgba(255, 255, 255, 0.1);
@@ -20,33 +25,14 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        html { scroll-behavior: smooth; }
+
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
             font-family: var(--font-sans);
             line-height: 1.6;
             overflow-x: hidden;
-        }
-
-        /* ДИМ ПОДЛІМ */
-        .smoke-overlay {
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            z-index: 9999;
-            pointer-events: none;
-            animation: smokeMovement 20s linear infinite;
-            background-image: url('https://raw.githubusercontent.com/nicholasgasior/smoke-overlay/master/smoke.png');
-            background-size: cover; /* Тут можна поставити посилання на свій gif */
-            opacity: 0.04;
-            filter: hue-rotate(0deg) brightness(1.2);
-        }
-
-        @keyframes smokeMovement {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
 
         .container {
@@ -69,13 +55,6 @@
             margin-bottom: 10px;
         }
 
-        .section-subtitle {
-            text-align: center;
-            color: var(--text-muted);
-            margin-bottom: 40px;
-            font-size: 0.95rem;
-        }
-
         .accent-line {
             width: 60px;
             height: 3px;
@@ -84,12 +63,116 @@
             border-radius: 2px;
         }
 
-        .hero-phone:hover { color: var(--accent); }
+        /* NAV */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background: rgba(25, 18, 14, 0.65);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            min-width: 0;
+        }
+        .nav-links { min-width: 0; flex-wrap: nowrap; }
+        .nav-brand {
+            font-family: var(--font-serif);
+            font-weight: 700;
+            letter-spacing: 2px;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .nav-brand span { color: var(--accent); }
+        .nav-links { display: flex; gap: 22px; align-items: center; }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color .2s;
+        }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-tiktok {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-main) !important;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: border-color .2s, background .2s;
+        }
+        .nav-tiktok:hover {
+            border-color: var(--accent);
+            background: rgba(214, 144, 35, 0.08);
+            color: var(--accent) !important;
+        }
+        .nav-phone {
+            display: inline-flex !important;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--accent);
+            color: #1a1411 !important;
+            font-weight: 800;
+            font-size: 1.35rem;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            border-radius: 50px;
+            box-shadow: 0 4px 16px rgba(214, 144, 35, 0.45);
+            transition: transform .2s, box-shadow .2s, background .2s;
+            animation: phonePulse 2.4s ease-in-out infinite;
+        }
+        .nav-phone:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(214, 144, 35, 0.6);
+            color: #1a1411 !important;
+        }
+        .nav-phone svg { flex-shrink: 0; }
+        @keyframes phonePulse {
+            0%, 100% { box-shadow: 0 4px 16px rgba(214, 144, 35, 0.45); }
+            50% { box-shadow: 0 4px 24px rgba(214, 144, 35, 0.75), 0 0 0 6px rgba(214, 144, 35, 0.12); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .nav-phone { animation: none; }
+        }
+        @media (max-width: 900px) {
+            .nav-phone { font-size: 1.2rem; padding: 9px 16px; }
+        }
+        @media (max-width: 760px) {
+            .nav-inner { padding: 10px 14px; gap: 10px; }
+            .nav-links { gap: 10px; }
+            .nav-links a:not(.nav-phone):not(.nav-tiktok) { display: none; }
+            .nav-tiktok { padding: 5px 8px; font-size: 0.85rem; }
+            .nav-tiktok span { display: none; }
+            .nav-phone { font-size: 1rem; padding: 8px 14px; gap: 6px; letter-spacing: 0; }
+        }
+        @media (max-width: 480px) {
+            .nav-brand { letter-spacing: 1px; font-size: 1rem; }
+            .nav-phone .nav-phone-text { display: none; }
+            .nav-phone { padding: 10px 12px; }
+            .nav-phone svg { width: 22px; height: 22px; }
+        }
 
         /* HERO */
         .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.85)), url('hero-bg.jpg');
+            min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.85)), url('hero-bg.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -97,187 +180,498 @@
             align-items: center;
             justify-content: center;
             text-align: center;
+            padding: 100px 20px 60px;
         }
-
-        .hero-content { max-width: 800px; padding: 20px; }
-        .hero h1 { font-size: 4rem; letter-spacing: 2px; margin-bottom: 10px; }
+        .hero-content { max-width: 820px; }
+        .hero h1 {
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
         .hero .subtitle {
             font-family: var(--font-serif);
             font-style: italic;
-            font-size: 1.5rem;
+            font-size: clamp(1.1rem, 2.5vw, 1.6rem);
             color: var(--accent);
             margin-bottom: 20px;
         }
-        .hero p { font-size: 1.1rem; margin-bottom: 30px; color: #ddd; }
-
-        .hero-phone {
-            display: block;
-            margin-top: 15px;
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: 600;
+        .hero p {
+            font-size: 1.05rem;
+            margin-bottom: 32px;
+            color: #ddd;
+            max-width: 620px;
+            margin-left: auto;
+            margin-right: auto;
         }
+        .hero-actions {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .hero-phone-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 26px;
+            border: 2px solid var(--accent);
+            color: var(--text-main);
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: background .25s, color .25s;
+        }
+        .hero-phone-btn:hover { background: var(--accent); color: #1a1411; }
 
-        /* GRID & CARDS */
-        .grid-section { padding: 60px 0; }
+        /* BUTTONS */
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: #1a1411;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform .25s, box-shadow .25s, background .25s;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(214, 144, 35, 0.35);
+            background: var(--accent-hover);
+        }
+        .btn-ghost {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+        .btn-ghost:hover { background: var(--accent); color: #1a1411; }
+
+        /* SECTIONS */
+        section { scroll-margin-top: 80px; }
+        .section-pad { padding: 80px 0; }
+        .section-alt { background: rgba(0,0,0,0.3); }
+
+        /* ABOUT */
+        .about {
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .about::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url('logo.jpg');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: min(560px, 80vw);
+            opacity: 0.14;
+            mix-blend-mode: screen;
+            pointer-events: none;
+            z-index: 0;
+            transform: translateY(var(--about-parallax, 0));
+            will-change: transform;
+        }
+        .about .container { position: relative; z-index: 1; }
+        .about .icon-emoji { font-size: 3rem; display: inline-block; margin-bottom: 10px; }
+        .about-text {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            color: var(--text-muted);
+        }
+        .about-text p + p { margin-top: 16px; }
+
+        /* PRODUCTS GRID */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 24px;
         }
-
         .card {
             background: rgba(35, 25, 19, 0.85);
             border: 1px solid var(--border);
             border-radius: 12px;
-            overflow: hidden; /* Fix for images */
-            transition: transform 0.3s, border-color 0.3s;
+            overflow: hidden;
+            transition: transform .3s, border-color .3s, box-shadow .3s;
+            display: flex;
+            flex-direction: column;
         }
-
         .card:hover {
             transform: translateY(-5px);
             border-color: var(--accent);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
         }
-
-        /* Клас для реальних фото товарів */
         .product-img {
             width: 100%;
-            height: 200px; /* Висота фото */
-            object-fit: cover; /* Обрізає фото, щоб не розтягувалось */
+            height: 220px;
+            object-fit: cover;
             display: block;
             border-bottom: 2px solid var(--accent);
+            cursor: zoom-in;
         }
 
-        /* Емодзі, якщо фото немає */
-        .card-image-placeholder {
-            height: 150px;
-            background: rgba(255,255,255,0.05);
+        /* LIGHTBOX */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 7, 5, 0.92);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: lbFade .2s ease-out;
+        }
+        .lightbox.is-open { display: flex; }
+        @keyframes lbFade { from { opacity: 0; } to { opacity: 1; } }
+        .lightbox img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            cursor: zoom-out;
+            animation: lbZoom .25s ease-out;
+        }
+        @keyframes lbZoom { from { transform: scale(0.92); } to { transform: scale(1); } }
+        .lightbox-close {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            width: 44px;
+            height: 44px;
+            border: 2px solid rgba(255,255,255,0.4);
+            background: rgba(0,0,0,0.5);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 1.6rem;
+            line-height: 1;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px; /* Відступ, якщо немає фото */
-            font-size: 4rem;
+            transition: border-color .2s, background .2s;
         }
-
-        .card-body { padding: 20px; text-align: center; }
-        .card h3 { margin-bottom: 10px; font-size: 1.3rem; }
-        .card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px; }
-        
+        .lightbox-close:hover { border-color: var(--accent); background: rgba(0,0,0,0.8); }
+        .card-image-placeholder {
+            height: 220px;
+            background: linear-gradient(135deg, #2a1f18, #1a1310);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4.5rem;
+            border-bottom: 2px solid var(--accent);
+        }
+        .card-body {
+            padding: 22px 20px;
+            text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .card h3 { margin-bottom: 10px; font-size: 1.25rem; }
+        .card p { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 18px; flex: 1; }
         .price {
-            display: block;
+            display: inline-block;
             color: var(--accent);
             font-weight: 700;
             font-size: 1.1rem;
         }
-
-        .btn {
-            display: inline-block;
-            background: var(--accent);
-            color: #1a1411;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-transform: uppercase;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(214, 144, 35, 0.3); }
-
-        .icon-emoji { font-size: 3rem; margin-bottom: 15px; display: block; }
-        .icon-small { font-size: 2.5rem; margin-bottom: 10px; display: block; }
 
         /* STEPS */
         .steps-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
+        }
+        .step {
+            background: rgba(35, 25, 19, 0.7);
+            border: 1px solid var(--border);
+            border-radius: 12px;
             text-align: center;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .step-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 2px solid var(--accent);
+        }
+        .step-body {
+            padding: 24px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
         .step-number {
             background: var(--accent);
-            color: #000;
-            width: 30px;
-            height: 30px;
+            color: #1a1411;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            margin-bottom: 15px;
+            font-weight: 700;
+            margin: 0 auto 14px;
         }
-         /* WHY US */
+        .icon-small { font-size: 2.4rem; margin-bottom: 10px; display: block; }
+
+        /* WHY US */
         .why-us-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 24px;
         }
+        .why-item {
+            background: rgba(35, 25, 19, 0.7);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            text-align: center;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .why-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 2px solid var(--accent);
+        }
+        .why-body {
+            padding: 24px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .why-item h3 { font-size: 1.15rem; margin-bottom: 8px; }
+        .why-item p { color: var(--text-muted); font-size: 0.92rem; }
 
         /* REVIEWS */
         .reviews-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
         }
-        
         .review-card {
             background: rgba(35, 25, 19, 0.85);
             border: 1px solid var(--border);
-            padding: 25px;
+            padding: 26px;
             border-radius: 12px;
         }
-        .stars { color: #FFD700; margin-bottom: 10px; }
+        .stars { color: #FFD700; margin-bottom: 10px; font-size: 0.95rem; }
         .review-text { font-style: italic; color: var(--text-muted); font-size: 0.95rem; }
-        .review-author { margin-top: 15px; font-weight: bold; font-size: 0.9rem; }
+        .review-author { margin-top: 14px; font-weight: 700; font-size: 0.9rem; color: var(--text-main); }
         .review-geo { font-size: 0.8rem; color: var(--text-muted); }
 
-        /* GALLERY */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
+        /* ORDER FORM */
+        .order-wrap {
+            max-width: 780px;
+            margin: 0 auto;
+            background: rgba(35, 25, 19, 0.85);
+            border: 1px solid var(--border);
+            padding: 36px;
+            border-radius: 16px;
         }
-        .gallery-item {
-            background: var(--card-bg);
-            height: 250px;
+        .order-wrap .section-hint {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+        .form label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+        .form input, .form textarea {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 14px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            color: var(--text-main);
             border-radius: 8px;
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            transition: border-color .2s, background .2s;
+        }
+        .form input:focus, .form textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(255,255,255,0.08);
+        }
+        .product-picker {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .product-check {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            padding: 12px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: border-color .2s, background .2s;
+            font-size: 0.95rem;
+            user-select: none;
+        }
+        .product-check:hover { border-color: var(--accent); }
+        .product-check input {
+            width: auto;
+            margin: 0;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+        .product-check.checked {
+            border-color: var(--accent);
+            background: rgba(214, 144, 35, 0.08);
+        }
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 6px;
+        }
+        .form-note {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 14px;
+        }
+        .form-note a { color: var(--accent); text-decoration: none; }
+
+        /* THUMBNAIL GALLERY */
+        .thumb-row {
+            display: flex;
+            gap: 8px;
+            padding: 10px;
+            background: rgba(0,0,0,0.25);
+            border-bottom: 1px solid var(--border);
+        }
+        .thumb {
+            width: 56px;
+            height: 56px;
+            padding: 0;
+            border: 2px solid transparent;
+            border-radius: 6px;
+            background: transparent;
+            cursor: pointer;
+            overflow: hidden;
+            transition: border-color .2s, transform .2s;
+        }
+        .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .thumb:hover { transform: translateY(-1px); border-color: rgba(214, 144, 35, 0.5); }
+        .thumb.is-active { border-color: var(--accent); }
+
+        /* PRODUCT VARIANT SUB-OPTIONS */
+        .variant-toggle {
+            margin-top: 14px;
+            padding: 10px 18px;
+            background: transparent;
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            color: var(--accent);
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: background .2s, color .2s;
+        }
+        .variant-toggle:hover { background: var(--accent); color: #1a1411; }
+        .variant-toggle .variant-caret { display: inline-block; transition: transform .25s; margin-left: 4px; }
+        .variant-toggle[aria-expanded="true"] .variant-caret { transform: rotate(180deg); }
+        .variant-options {
+            margin-top: 14px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid var(--border);
-            opacity: 0.9;
+            gap: 8px;
+            text-align: left;
         }
-        .gallery-caption { margin-top: 15px; font-size: 0.9rem; font-weight: 600; }
+        .variant-options[hidden] { display: none; }
+        .variant-opt {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 14px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: border-color .2s, background .2s, transform .2s;
+            width: 100%;
+        }
+        .variant-opt:hover { border-color: var(--accent); background: rgba(214, 144, 35, 0.08); }
+        .variant-opt.added { border-color: var(--accent); background: rgba(214, 144, 35, 0.14); }
+        .variant-name { font-weight: 600; }
+        .variant-price { color: var(--accent); font-weight: 700; white-space: nowrap; }
 
         /* TIKTOK */
         .tiktok-block {
             text-align: center;
-            padding: 60px 0;
-            background: linear-gradient(180deg, transparent, rgba(214, 144, 35, 0.08), transparent);
+            padding: 100px 20px;
+            position: relative;
+            overflow: hidden;
+            background-image:
+                linear-gradient(rgba(15, 10, 7, 0.78), rgba(15, 10, 7, 0.85)),
+                url('smoker-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
+        @media (min-width: 900px) {
+            .tiktok-block { background-attachment: fixed; }
+        }
+        .tiktok-block .container { position: relative; z-index: 1; }
+        .tiktok-block h2 { text-shadow: 0 2px 12px rgba(0,0,0,0.6); }
+        .tiktok-block p { text-shadow: 0 1px 8px rgba(0,0,0,0.6); }
         .tiktok-btn {
             display: inline-flex;
             align-items: center;
             gap: 10px;
             background: var(--accent);
-            padding: 12px 25px;
+            padding: 14px 28px;
             border-radius: 10px;
-            color: #000;
-            font-weight: bold;
+            color: #1a1411;
+            font-weight: 700;
             text-decoration: none;
+            margin-top: 10px;
+            transition: transform .25s, box-shadow .25s;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
         }
-
-        /* DELIVERY */
-        .delivery-grid {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-        }
-        .delivery-grid .card { width: 100%; max-width: 400px; }
+        .tiktok-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(214, 144, 35, 0.4); }
 
         /* FOOTER */
         footer {
@@ -289,240 +683,931 @@
         }
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 40px;
             margin-bottom: 40px;
         }
+        .vizytka-wrap {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0 40px;
+        }
+        .vizytka-card {
+            width: min(420px, 85%);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.06);
+            display: block;
+            height: auto;
+        }
+        .footer-col h3 {
+            font-size: 1.2rem;
+            margin-bottom: 14px;
+            color: var(--accent);
+        }
         .footer-phone {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: var(--accent);
             font-weight: 700;
             text-decoration: none;
+            display: inline-block;
+            margin-bottom: 10px;
         }
-        .footer-address { color: var(--text-muted); margin-top: 10px; }
-        
-        .form input, .form textarea {
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 15px;
+        .footer-phone:hover { color: var(--accent-hover); }
+        .footer-col p, .footer-col a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        .footer-col p { margin-bottom: 8px; }
+        .footer-col a:hover { color: var(--accent); }
+        .social-row { display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
             background: rgba(255,255,255,0.05);
             border: 1px solid var(--border);
-            color: #fff;
             border-radius: 8px;
-            font-family: var(--font-sans);
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: border-color .2s, background .2s;
         }
-        .form input:focus, .form textarea:focus {
-            outline: none;
+        .social-btn:hover {
             border-color: var(--accent);
+            background: rgba(214, 144, 35, 0.08);
         }
-        .form button { width: 100%; }
-
         .copyright {
             text-align: center;
-            color: #555;
-            font-size: 0.8rem;
+            color: #666;
+            font-size: 0.85rem;
             border-top: 1px solid rgba(255,255,255,0.05);
             padding-top: 20px;
         }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            h2 { font-size: 1.8rem; }
-            .footer-grid { text-align: center; }
+            h2 { font-size: 1.9rem; }
+            .order-wrap { padding: 24px 18px; }
+            .section-pad { padding: 56px 0; }
+            .hero { background-attachment: scroll; }
+        }
+
+        /* ===== HERO SMOKE (subtle, hero-only) ===== */
+        .hero-smoke {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .hero-smoke-blob {
+            position: absolute;
+            bottom: -30%;
+            width: 60vw;
+            height: 60vw;
+            max-width: 720px;
+            max-height: 720px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(230,220,200,0.18) 0%, rgba(230,220,200,0.06) 45%, rgba(230,220,200,0) 70%);
+            filter: blur(40px);
+            mix-blend-mode: screen;
+            animation: heroSmoke 28s linear infinite;
+            will-change: transform, opacity;
+        }
+        .hero-smoke-blob:nth-child(1) { left: 5%;  animation-delay: 0s; }
+        .hero-smoke-blob:nth-child(2) { left: 40%; animation-delay: -10s; animation-duration: 36s; }
+        .hero-smoke-blob:nth-child(3) { left: 70%; animation-delay: -20s; animation-duration: 32s; }
+        @keyframes heroSmoke {
+            0%   { transform: translate3d(0,0,0) scale(0.9); opacity: 0; }
+            15%  { opacity: 0.8; }
+            100% { transform: translate3d(30px,-120%,0) scale(1.5); opacity: 0; }
+        }
+
+        /* ===== HERO TITLE (subtle glow, no 3D extrude) ===== */
+        .hero h1 {
+            color: #f3e6c8;
+            letter-spacing: 1px;
+            text-shadow:
+                0 2px 6px rgba(0,0,0,0.45),
+                0 6px 20px rgba(0,0,0,0.55),
+                0 0 40px rgba(214, 144, 35, 0.18);
+        }
+        .hero .trust-strip {
+            margin-top: 22px;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            letter-spacing: 0.4px;
+        }
+        .hero .trust-strip .dot { opacity: 0.5; margin: 0 8px; }
+        .guarantee-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 14px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(214, 144, 35, 0.1);
+            border: 1px solid rgba(214, 144, 35, 0.35);
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.7s cubic-bezier(0.2,0.8,0.2,1), transform 0.7s cubic-bezier(0.2,0.8,0.2,1);
+            will-change: transform, opacity;
+        }
+        .reveal.is-visible { opacity: 1; transform: translateY(0); }
+        .reveal.delay-1 { transition-delay: 0.06s; }
+        .reveal.delay-2 { transition-delay: 0.12s; }
+        .reveal.delay-3 { transition-delay: 0.18s; }
+
+        /* ===== ANIMATED FLAME (replaces 🔥) ===== */
+        .flame-svg { width: 56px; height: 66px; margin: 0 auto 10px; display: block; filter: drop-shadow(0 4px 10px rgba(255,120,30,0.3)); }
+        .flame-core { animation: flicker 0.55s ease-in-out infinite alternate; transform-origin: center bottom; transform-box: fill-box; }
+        .flame-outer { animation: flicker 0.75s ease-in-out infinite alternate-reverse; transform-origin: center bottom; transform-box: fill-box; }
+        @keyframes flicker {
+            from { transform: scaleY(1) translateY(0); opacity: 0.9; }
+            to   { transform: scaleY(1.08) translateY(-2px); opacity: 1; }
+        }
+
+        /* ===== STACKING: content above hero smoke, below nav ===== */
+        .nav { z-index: 100; }
+        .hero, main, section, footer { position: relative; z-index: 2; }
+        .hero-content { position: relative; z-index: 2; }
+        .toast { z-index: 200; }
+
+        /* ===== FAQ ===== */
+        .faq-list { display: flex; flex-direction: column; gap: 10px; }
+        .faq-item {
+            background: rgba(35, 25, 19, 0.7);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0 18px;
+            transition: border-color .2s;
+        }
+        .faq-item[open] { border-color: var(--accent); }
+        .faq-item summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 16px 0;
+            font-weight: 600;
+            color: var(--text-main);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary::after {
+            content: "+";
+            color: var(--accent);
+            font-size: 1.4rem;
+            font-weight: 400;
+            transition: transform .2s;
+            line-height: 1;
+        }
+        .faq-item[open] summary::after { content: "−"; }
+        .faq-item p {
+            color: var(--text-muted);
+            padding: 0 0 18px;
+            font-size: 0.96rem;
+            line-height: 1.6;
+        }
+        .faq-item a { color: var(--accent); text-decoration: none; }
+        .faq-item a:hover { text-decoration: underline; }
+
+        /* ===== STICKY MOBILE CTA BAR ===== */
+        .mobile-cta {
+            display: none;
+            position: fixed;
+            left: 0; right: 0; bottom: 0;
+            background: rgba(15, 10, 7, 0.97);
+            border-top: 1px solid var(--border);
+            padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+            gap: 8px;
+            z-index: 150;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .mobile-cta a {
+            flex: 1;
+            text-align: center;
+            padding: 12px 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+        }
+        .mobile-cta .m-call { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
+        .mobile-cta .m-order { background: var(--accent); color: #1a1411; }
+        @media (max-width: 768px) {
+            .mobile-cta { display: flex; }
+            body { padding-bottom: 80px; }
+        }
+
+        /* TOAST */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #1a1411;
+            color: var(--text-main);
+            border: 1px solid var(--accent);
+            padding: 14px 22px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            opacity: 0;
+            transition: opacity .3s, transform .3s;
+            z-index: 200;
+            max-width: calc(100% - 40px);
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
         }
     </style>
 </head>
 <body>
 
-    <!-- ШАР З ДИМОМ -->
-    <div class="smoke-overlay"></div>
+    <!-- Subtle hero smoke (3 drifting blobs, hero-only) -->
+    <div class="hero-smoke" aria-hidden="true">
+        <span class="hero-smoke-blob"></span>
+        <span class="hero-smoke-blob"></span>
+        <span class="hero-smoke-blob"></span>
+    </div>
+
+    <!-- NAV -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a class="nav-brand" href="#top">ДИМ<span> і </span>ГОРИ</a>
+            <div class="nav-links">
+                <a href="#about">Про нас</a>
+                <a href="#products">Продукція</a>
+                <a href="#how">Як ми коптимо</a>
+                <a href="#order">Замовлення</a>
+                <a href="#faq">FAQ</a>
+                <a class="nav-tiktok" href="https://www.tiktok.com/@smokerdum" target="_blank" rel="noopener" aria-label="TikTok @smokerdum">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.3 6.6a5.2 5.2 0 0 1-3.2-1.1 5.2 5.2 0 0 1-2-3.5h-3.2v12.7a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V8.9a5.9 5.9 0 0 0-.8 0 5.8 5.8 0 1 0 5.8 5.8V8.9a8.4 8.4 0 0 0 5.2 1.8V7.5a5.2 5.2 0 0 1 0-.9Z"/></svg>
+                    <span>TikTok</span>
+                </a>
+                <a class="nav-phone" href="tel:+380979318260" aria-label="Подзвонити +380 97 931 82 60">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1 1 0 0 0-1.02.24l-2.2 2.2a15.07 15.07 0 0 1-6.59-6.59l2.2-2.21a1 1 0 0 0 .25-1A11.36 11.36 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1c0 9.39 7.61 17 17 17a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1Z"/></svg>
+                    <span class="nav-phone-text">+380 97 931 82 60</span>
+                </a>
+            </div>
+        </div>
+    </nav>
 
     <!-- HERO -->
-    <header class="hero">
+    <header class="hero" id="top">
         <div class="hero-content">
-            <h1>ДИМ І ГОРИ</h1>
-            <div class="subtitle">Натуральне копчення з Прикарпаття</div>
-            <p>Справжній дим бука, яблуні та вишні. Традиційні гуцульські рецепти. <br>Свіжа продукція щодня з Гошева, Івано-Франківщина.</p>
-            <a href="#footer" class="btn">Замовити зараз</a>
-            <a href="tel:+380979318260" class="hero-phone">📞 +380 97 931 82 60</a>
+            <h1 class="reveal">Коптильня «Дим і Гори» з&nbsp;Прикарпаття</h1>
+            <div class="subtitle reveal delay-1">Натуральне копчення на буку, яблуні та вишні</div>
+            <p class="reveal delay-2">Коптимо 8–12 годин у сімейній коптильні у&nbsp;с.&nbsp;Гошів на Івано-Франківщині. Без рідкого диму, нітритів і консервантів. Партії двічі на тиждень — їсте свіже. Доставка Новою поштою 1–2 дні.</p>
+            <div class="hero-actions reveal delay-3">
+                <a href="#order" class="btn">Замовити копченості</a>
+                <a href="tel:+380979318260" class="hero-phone-btn">📞 Подзвонити (9:00–20:00)</a>
+            </div>
+            <div class="guarantee-badge reveal delay-3">✓ Гарантія свіжості — або повертаємо гроші</div>
         </div>
     </header>
 
-    <!-- ПРО НАС -->
-    <section class="about container">
-        <span class="icon-emoji">🔥</span>
-        <h2>Про нас</h2>
-        <div class="accent-line"></div>
-        <div class="about-text">
-            <p>Ми — сімейна коптильня з маленького села Гошів, що біля Ясної Гори на Івано-Франківщині. Тут, серед карпатських смерек, ми коптимо м'ясо так, як це робили наші діди — на справжньому димі з бука, яблуні та вишні.</p>
-            <p>Жодної хімії, жодних консервантів — тільки свіже м'ясо, натуральні спеції та тепло карпатського вогнища. Кожен шматок — це частинка нашої любові до рідного краю і гуцульських традицій.</p>
-        </div>
-    </section>
-
-    <!-- НАШІ ХІТИ -->
-    <section class="grid-section container">
-        <h2>Наші хіти</h2>
-        <div class="accent-line"></div>
-        
-        <div class="grid-container">
-            <!-- 1. Сало (Emoji залишився, якщо немає фото) -->
-            <div class="card">
-                <div class="card-image-placeholder">🍞</div>
-                <div class="card-body">
-                    <h3>Сало копчене</h3>
-                    <p>Копчене сало з прошарками, натерте карпатськими травами та часником. Золотиста скоринка, ніжний аромат.</p>
-                    <span class="price">280 грн/кг</span>
-                </div>
-            </div>
-
-            <!-- 2. Ковбаси (Emoji) -->
-            <div class="card">
-                <div class="card-image-placeholder">🌭</div>
-                <div class="card-body">
-                    <h3>Копчені ковбаси</h3>
-                    <p>Домашня ковбаса гарячого копчення за гуцульським рецептом — соковита, ароматна, з натуральними спеціями.</p>
-                    <span class="price">320 грн/кг</span>
-                </div>
-            </div>
-
-            <!-- 3. РЕБРА (Ваше фото) -->
-            <div class="card">
-                <img src="Ребра.jpg" alt="Копчені реберця" class="product-img">
-                <div class="card-body">
-                    <h3>Реберця копчені</h3>
-                    <p>Свинячі реберця гарячого копчення на вишневих дровах — золотиста хрустка скоринка ззовні.</p>
-                    <span class="price">350 грн/кг</span>
-                </div>
-            </div>
-            
-            <!-- 4. РИБА (Ваше фото) -->
-            <div class="card">
-                <img src=" alt="риба.jpg" class="product-img">
-                <div class="card-body">
-                    <h3>Риба копчена</h3>
-                    <p>Ідеальний вибір для святкового столу та пива. Сом або форель золотистого кольору з ароматом вишні.</p>
-                    <span class="price">350 грн/кг</span>
-                </div>
-            </div>
-
-            <!-- 5. ПЕРЕПІЛКИ (Ваше фото) -->
-            <div class="card">
-                <img src="кури.jpg" alt="Копчені перепілки" class="product-img">
-                <div class="card-body">
-                    <h3>Перепілки копчені</h3>
-                    <p>Мініатюрні перепілки або курята з золотистою кірочкою. Ідеальна закуска, яка тане в роті.</p>
-                    <span class="price">250 грн/кг</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ЯК МИ КОПТИМО -->
-    <section class="grid-section" style="background: rgba(0,0,0,0.3);">
+    <!-- ABOUT -->
+    <section class="section-pad about" id="about">
         <div class="container">
-            <h2>Як ми коптимо</h2>
-            <div class="accent-line"></div>
+            <svg class="flame-svg reveal" viewBox="0 0 64 76" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <defs>
+                    <linearGradient id="flameOuter" x1="0" y1="1" x2="0" y2="0">
+                        <stop offset="0%"  stop-color="#ff2f00"/>
+                        <stop offset="60%" stop-color="#ff8a1f"/>
+                        <stop offset="100%" stop-color="#ffe07a"/>
+                    </linearGradient>
+                    <linearGradient id="flameCore" x1="0" y1="1" x2="0" y2="0">
+                        <stop offset="0%"  stop-color="#ffb547"/>
+                        <stop offset="100%" stop-color="#fff3c4"/>
+                    </linearGradient>
+                </defs>
+                <path class="flame-outer"
+                      d="M32 74 C 12 72, 4 56, 10 40 C 14 30, 22 28, 22 18 C 22 10, 28 4, 32 2 C 36 14, 48 18, 52 34 C 58 52, 50 72, 32 74 Z"
+                      fill="url(#flameOuter)"/>
+                <path class="flame-core"
+                      d="M32 70 C 20 68, 16 56, 22 46 C 26 38, 30 40, 30 30 C 30 24, 34 22, 36 18 C 40 28, 44 34, 44 46 C 44 60, 40 70, 32 70 Z"
+                      fill="url(#flameCore)"/>
+            </svg>
+            <h2 class="reveal delay-1">Про нас</h2>
+            <div class="accent-line reveal delay-1"></div>
+            <div class="about-text reveal delay-2">
+                <p>Ми — сімейна коптильня з маленького села Гошів, що біля Ясної Гори на Івано-Франківщині. Тут, серед карпатських смерек, ми коптимо м'ясо так, як це робили наші діди — на справжньому димі з бука, яблуні та вишні.</p>
+                <p>Жодної хімії, жодних консервантів — тільки свіже м'ясо, натуральні спеції та тепло карпатського вогнища. Кожен шматок — це частинка нашої любові до рідного краю і гуцульських традицій.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="section-pad section-alt" id="products">
+        <div class="container">
+            <h2 class="reveal">Наші хіти</h2>
+            <div class="accent-line reveal"></div>
+            <div class="grid-container">
+                <article class="card reveal card-variants" data-variants-card data-gallery>
+                    <img src="rebra.jpg" alt="Копчені реберця на вишневих дровах" class="product-img product-img-main" loading="lazy">
+                    <div class="thumb-row">
+                        <button type="button" class="thumb is-active" data-src="rebra.jpg" aria-label="Фото 1 — реберця смужки">
+                            <img src="rebra.jpg" alt="" loading="lazy">
+                        </button>
+                        <button type="button" class="thumb" data-src="rebra-grubi.jpg" aria-label="Фото 2 — грубі ребра">
+                            <img src="rebra-grubi.jpg" alt="" loading="lazy">
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <h3>Реберця копчені</h3>
+                        <p>Свинячі реберця гарячого копчення на вишневих дровах — золотиста хрустка скоринка ззовні. Оберіть тип нарізки нижче.</p>
+                        <span class="price">від 500 грн/кг</span>
+                        <button type="button" class="variant-toggle" aria-expanded="false" aria-controls="ribs-options">
+                            Обрати тип <span class="variant-caret" aria-hidden="true">▾</span>
+                        </button>
+                        <div class="variant-options" id="ribs-options" hidden>
+                            <button type="button" class="variant-opt" data-product="Реберця копчені (смужки)" data-price="500">
+                                <span class="variant-name">Реберця (смужки)</span>
+                                <span class="variant-price">500 грн/кг</span>
+                            </button>
+                            <button type="button" class="variant-opt" data-product="Грубі ребра копчені" data-price="550">
+                                <span class="variant-name">Грубі ребра</span>
+                                <span class="variant-price">550 грн/кг</span>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card reveal delay-1 card-variants" data-variants-card data-gallery>
+                    <img src="kury.jpg" alt="Копчені перепілки з золотистою кірочкою" class="product-img product-img-main" loading="lazy">
+                    <div class="thumb-row">
+                        <button type="button" class="thumb is-active" data-src="kury.jpg" aria-label="Фото 1 — перепілки">
+                            <img src="kury.jpg" alt="" loading="lazy">
+                        </button>
+                        <button type="button" class="thumb" data-src="kuryata.jpg" aria-label="Фото 2 — кури">
+                            <img src="kuryata.jpg" alt="" loading="lazy">
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <h3>Перепілки / кури копчені</h3>
+                        <p>Золотиста хрустка кірочка, ніжне ароматне м'ясо. Оберіть варіант нижче.</p>
+                        <span class="price">від 300 грн/кг</span>
+                        <button type="button" class="variant-toggle" aria-expanded="false" aria-controls="poultry-options">
+                            Обрати тип <span class="variant-caret" aria-hidden="true">▾</span>
+                        </button>
+                        <div class="variant-options" id="poultry-options" hidden>
+                            <button type="button" class="variant-opt" data-product="Перепілки копчені" data-price="700">
+                                <span class="variant-name">Перепілки</span>
+                                <span class="variant-price">700 грн/кг</span>
+                            </button>
+                            <button type="button" class="variant-opt" data-product="Кури копчені" data-price="300">
+                                <span class="variant-name">Кури</span>
+                                <span class="variant-price">300 грн/кг</span>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card reveal delay-2 card-variants" data-variants-card data-gallery>
+                    <img src="ryba.jpg" alt="Копчена риба золотистого кольору" class="product-img product-img-main" loading="lazy">
+                    <div class="thumb-row">
+                        <button type="button" class="thumb is-active" data-src="ryba.jpg" aria-label="Фото 1">
+                            <img src="ryba.jpg" alt="" loading="lazy">
+                        </button>
+                        <button type="button" class="thumb" data-src="forel.jpg" aria-label="Фото 2 — форель червона">
+                            <img src="forel.jpg" alt="" loading="lazy">
+                        </button>
+                        <button type="button" class="thumb" data-src="forel-bila.jpg" aria-label="Фото 3 — форель біла">
+                            <img src="forel-bila.jpg" alt="" loading="lazy">
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <h3>Риба копчена</h3>
+                        <p>Делікатне філе з чистим смаком і легкою солоністю. Оберіть вид риби нижче.</p>
+                        <span class="price">від 600 грн/кг</span>
+                        <button type="button" class="variant-toggle" aria-expanded="false" aria-controls="fish-options">
+                            Обрати вид <span class="variant-caret" aria-hidden="true">▾</span>
+                        </button>
+                        <div class="variant-options" id="fish-options" hidden>
+                            <button type="button" class="variant-opt" data-product="Риба скумбрія копчена" data-price="600">
+                                <span class="variant-name">Скумбрія</span>
+                                <span class="variant-price">600 грн/кг</span>
+                            </button>
+                            <button type="button" class="variant-opt" data-product="Риба форель червона копчена" data-price="900">
+                                <span class="variant-name">Форель червона</span>
+                                <span class="variant-price">900 грн/кг</span>
+                            </button>
+                            <button type="button" class="variant-opt" data-product="Риба форель біла копчена" data-price="800">
+                                <span class="variant-name">Форель біла</span>
+                                <span class="variant-price">800 грн/кг</span>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card reveal" data-product="Сало копчене" data-price="300">
+                    <img src="salo.jpg" alt="Копчене сало з золотистою скоринкою" class="product-img" loading="lazy">
+                    <div class="card-body">
+                        <h3>Сало копчене</h3>
+                        <p>Копчене сало з прошарками, натерте карпатськими травами та часником. Золотиста скоринка, ніжний аромат.</p>
+                        <span class="price">300 грн/кг</span>
+                    </div>
+                </article>
+
+                <article class="card reveal delay-1" data-product="Копчені ковбаси" data-price="400">
+                    <img src="kovbasy.jpg" alt="Копчені ковбаси кільцем на коптильні" class="product-img" loading="lazy">
+                    <div class="card-body">
+                        <h3>Копчені ковбаси</h3>
+                        <p>Домашня ковбаса гарячого копчення за гуцульським рецептом — соковита, ароматна, з натуральними спеціями.</p>
+                        <span class="price">400 грн/кг</span>
+                    </div>
+                </article>
+
+                <article class="card reveal delay-2 card-variants" data-variants-card data-gallery>
+                    <img src="pidcherevyna.jpg" alt="Копчена підчеревина з пряною скоринкою" class="product-img product-img-main" loading="lazy">
+                    <div class="thumb-row">
+                        <button type="button" class="thumb is-active" data-src="pidcherevyna.jpg" aria-label="Фото 1 — підчеревина">
+                            <img src="pidcherevyna.jpg" alt="" loading="lazy">
+                        </button>
+                        <button type="button" class="thumb" data-src="shynka.jpg" aria-label="Фото 2 — шинка">
+                            <img src="shynka.jpg" alt="" loading="lazy">
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <h3>Копчена підчеревина</h3>
+                        <p>М'яка текстура з виразним димним ароматом і спеціями. Відмінний вибір до свята чи щоденного столу.</p>
+                        <span class="price">від 400 грн/кг</span>
+                        <button type="button" class="variant-toggle" aria-expanded="false" aria-controls="belly-options">
+                            Обрати тип <span class="variant-caret" aria-hidden="true">▾</span>
+                        </button>
+                        <div class="variant-options" id="belly-options" hidden>
+                            <button type="button" class="variant-opt" data-product="Копчена підчеревина" data-price="600">
+                                <span class="variant-name">Підчеревина</span>
+                                <span class="variant-price">600 грн/кг</span>
+                            </button>
+                            <button type="button" class="variant-opt" data-product="Шпондер копчений" data-price="400">
+                                <span class="variant-name">Шпондер</span>
+                                <span class="variant-price">400 грн/кг</span>
+                            </button>
+                            <button type="button" class="variant-opt" data-product="Шия / полядвиця / шинка копчена" data-price="600">
+                                <span class="variant-name">Шия, полядвиця, шинка</span>
+                                <span class="variant-price">600 грн/кг</span>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card reveal delay-3" data-product="Копчені рульки" data-price="400">
+                    <img src="rulky.jpg" alt="Копчені рульки з золотистою скоринкою" class="product-img" loading="lazy">
+                    <div class="card-body">
+                        <h3>Копчені рульки</h3>
+                        <p>Соковита рулька гарячого копчення на карпатських дровах — ніжне м'ясо під хрусткою золотистою скоринкою.</p>
+                        <span class="price">400 грн/кг</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW WE SMOKE -->
+    <section class="section-pad" id="how">
+        <div class="container">
+            <h2 class="reveal">Як ми коптимо</h2>
+            <div class="accent-line reveal"></div>
             <div class="steps-grid">
-                <div class="card">
-                    <span class="step-number">01</span>
-                    <span class="icon-small">🥩</span>
-                    <h3>Відбір м'яса</h3>
-                    <p>Найсвіжіше м'ясо від перевіренних фермерів Прикарпаття.</p>
+                <div class="step">
+                    <img src="step-meat.jpg" alt="Свіже м'ясо від фермерів Прикарпаття" class="step-img" loading="lazy">
+                    <div class="step-body">
+                        <span class="step-number">01</span>
+                        <h3>Відбір м'яса</h3>
+                        <p>Найсвіжіше м'ясо від перевірених фермерів Прикарпаття.</p>
+                    </div>
                 </div>
-                <div class="card">
-                    <span class="step-number">02</span>
-                    <span class="icon-small">🌲</span>
-                    <h3>Засолювання</h3>
-                    <p>Натираємо спеціями та сіллю. Витримуємо.</p>
+                <div class="step">
+                    <img src="step-salt.jpg" alt="М'ясо натерте сіллю та спеціями" class="step-img" loading="lazy">
+                    <div class="step-body">
+                        <span class="step-number">02</span>
+                        <h3>Засолювання</h3>
+                        <p>Натираємо натуральними спеціями та сіллю. Витримуємо для насиченого смаку.</p>
+                    </div>
                 </div>
-                <div class="card">
-                    <span class="step-number">03</span>
-                    <span class="icon-small">🔥</span>
-                    <h3>Копчення</h3>
-                    <p>На деревині бука, яблуня і вишні.</p>
+                <div class="step">
+                    <img src="step-smoke.jpg" alt="Дрова бука, яблуні та вишні у вогнищі коптильні" class="step-img" loading="lazy">
+                    <div class="step-body">
+                        <span class="step-number">03</span>
+                        <h3>Копчення</h3>
+                        <p>На деревині бука, яблуні та вишні — без рідкого диму та хімії.</p>
+                    </div>
                 </div>
-                <div class="card">
-                    <span class="step-number">04</span>
-                    <span class="icon-small">📦</span>
-                    <h3>Упаковка</h3>
-                    <p>Вакуумна упаковка для збереження смаку.</p>
+                <div class="step">
+                    <img src="step-pack.jpg" alt="Вакуумно упаковане копчене м'ясо для доставки" class="step-img" loading="lazy">
+                    <div class="step-body">
+                        <span class="step-number">04</span>
+                        <h3>Упаковка</h3>
+                        <p>Вакуумна упаковка для збереження смаку й аромату під час доставки.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ЧОМУ МИ -->
-    <section class="grid-section container">
-        <h2>Чому обирають нас</h2>
-        <div class="accent-line"></div>
-        <div class="why-us-grid">
-            <div class="card"><span class="icon-small">🌲</span><h3>Натуральні дрова</h3><p>Бук, ялунця, вишня</p></div>
-            <div class="card"><span class="icon-small">🛡️</span><h3>Без хімії</h3><p>Тільки м'ясо, сіль та спеції</p></div>
-            <div class="card"><span class="icon-small">🚚</span><h3>Швидка доставка</h3><p>По всій Україні</p></div>
-            <div class="card"><span class="icon-small">🍳</span><h3>Свіже щодня</h3><p>Коптимо маленькими партіями</p></div>
-        </div>
-    </section>
-
-    <!-- ВІДГУКИ -->
-    <section class="grid-section" style="background: rgba(0,0,0,0.3);">
+    <!-- WHY US -->
+    <section class="section-pad section-alt">
         <div class="container">
-            <h2>Відгуки</h2>
-            <div class="accent-line"></div>
-            <div class="reviews-grid">
-                <div class="review-card"><p class="review-text">«Замовляю вже третій раз — смак просто бомба!»</p><div class="review-author">Оксана М.</div></div>
-                <div class="review-card"><p class="review-text">«Балик тане в роті. Доставка дійсно швидка.»</p><div class="review-author">Андрій К.</div></div>
-                <div class="review-card"><p class="review-text">«Нарешті знайшла копченості без хімії!»</p><div class="review-author">Марія Л.</div></div>
-                <div class="review-card"><p class="review-text">«Реберця на день народження замість торта — ідеально.»</p><div class="review-author">Тарас В.</div></div>
+            <h2 class="reveal">Чому обирають нас</h2>
+            <div class="accent-line reveal"></div>
+            <div class="why-us-grid">
+                <div class="why-item">
+                    <img src="why-wood.jpg" alt="Дрова бука, яблуні та вишні" class="why-img" loading="lazy">
+                    <div class="why-body"><h3>Натуральні дрова</h3><p>Бук, яблуня, вишня</p></div>
+                </div>
+                <div class="why-item">
+                    <img src="why-natural.jpg" alt="Натуральні спеції, часник та зелень" class="why-img" loading="lazy">
+                    <div class="why-body"><h3>Без хімії</h3><p>Тільки м'ясо, сіль та спеції</p></div>
+                </div>
+                <div class="why-item">
+                    <img src="why-delivery.jpg" alt="Упаковка замовлення для відправлення" class="why-img" loading="lazy">
+                    <div class="why-body"><h3>Швидка доставка</h3><p>По всій Україні Новою поштою</p></div>
+                </div>
+                <div class="why-item">
+                    <img src="why-fresh.jpg" alt="Свіжо закопчене м'ясо нарізане на дошці" class="why-img" loading="lazy">
+                    <div class="why-body"><h3>Свіже щодня</h3><p>Коптимо маленькими партіями</p></div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- ГАЛЕРЕЯ / TIKTOK -->
-    <section class="grid-section" style="background: rgba(0,0,0,0.3); text-align:center;">
+    <!-- FAQ -->
+    <section class="section-pad" id="faq">
+        <div class="container" style="max-width: 780px;">
+            <h2 class="reveal">Часті запитання</h2>
+            <div class="accent-line reveal"></div>
+            <div class="faq-list">
+                <details class="faq-item reveal">
+                    <summary>Який мінімальний заказ і вартість доставки?</summary>
+                    <p>Мінімальне замовлення — 2 кг (у будь-якому поєднанні продуктів). Доставка Новою поштою — 80–150 грн залежно від ваги. Від 4 кг — доставка за наш рахунок.</p>
+                </details>
+                <details class="faq-item reveal">
+                    <summary>Скільки і як правильно зберігати?</summary>
+                    <p>У вакуумній упаковці при +4 °C — до 21 дня. Після відкриття — 5 днів у холодильнику. Можна заморозити до 3 місяців без втрати смаку.</p>
+                </details>
+                <details class="faq-item reveal">
+                    <summary>Які способи оплати?</summary>
+                    <p>Накладений платіж Новою поштою, переказ на картку ФОП, готівка при самовивозі з коптильні. Оплата після підтвердження замовлення дзвінком.</p>
+                </details>
+                <details class="faq-item reveal">
+                    <summary>Як часто готуєте нові партії?</summary>
+                    <p>Двічі на тиждень — вівторок і п'ятницю. Приймаємо замовлення за 1 день до копчення. Без заморозки та складських залишків — лише свіже.</p>
+                </details>
+                <details class="faq-item reveal">
+                    <summary>Чи є сертифікати якості?</summary>
+                    <p>Так. ФОП офіційно зареєстрований, продукція проходить ветеринарний контроль. Скан свідоцтв надсилаємо за запитом у месенджері.</p>
+                </details>
+                <details class="faq-item reveal">
+                    <summary>Що входить у склад?</summary>
+                    <p>Тільки м'ясо (свинина/курка/риба), сіль, натуральні спеції та трави. Без рідкого диму, нітритів, сої, глутамату і консервантів.</p>
+                </details>
+                <details class="faq-item reveal">
+                    <summary>Можна приїхати до коптильні?</summary>
+                    <p>Так, самовивіз з Гошева (Івано-Франківська обл.) за попередньою домовленістю по телефону — зустрінемо, покажемо, пригостимо чаєм. <a href="https://www.google.com/maps/search/?api=1&amp;query=%D0%93%D0%BE%D1%88%D1%96%D0%B2+%D0%86%D0%B2%D0%B0%D0%BD%D0%BE-%D0%A4%D1%80%D0%B0%D0%BD%D0%BA%D1%96%D0%B2%D1%81%D1%8C%D0%BA%D0%B0+%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C" target="_blank" rel="noopener">📍 Відкрити на мапі</a></p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- ORDER FORM -->
+    <section class="section-pad section-alt" id="order">
         <div class="container">
-            <span class="icon-emoji">🔥</span>
-            <h2>Дивіться наш TikTok</h2>
-            <p style="margin-bottom: 20px; color: #A89B8D;">Справжній процес, закулісся коптильні, рецепти та карпатський настрій</p>
-            <a href="#" class="tiktok-btn">@smokerdum у TikTok</a>
+            <h2 class="reveal">Форма замовлення</h2>
+            <div class="accent-line reveal"></div>
+            <div class="order-wrap">
+                <p class="section-hint">Оберіть продукцію та залиште контакти — ми передзвонимо для підтвердження замовлення.</p>
+                <form class="form" id="order-form" novalidate>
+                    <label>Продукція</label>
+                    <div class="product-picker" id="product-picker">
+                        <label class="product-check"><input type="checkbox" name="product" value="Реберця копчені (смужки)">Реберця (смужки)</label>
+                        <label class="product-check"><input type="checkbox" name="product" value="Грубі ребра копчені">Грубі ребра</label>
+                        <label class="product-check"><input type="checkbox" name="product" value="Перепілки копчені">Перепілки</label>
+                        <label class="product-check"><input type="checkbox" name="product" value="Кури копчені">Кури</label>
+                        <label class="product-check"><input type="checkbox" name="product" value="Риба скумбрія копчена">Риба скумбрія</label>
+                        <label class="product-check"><input type="checkbox" name="product" value="Риба форель червона копчена">Риба форель червона</label>
+                        <label class="product-check"><input type="checkbox" name="product" value="Риба форель біла копчена">Риба форель біла</label>
+                        <label class="product-check"><input type="checkbox" name="product" value="Сало копчене">Сало копчене</label>
+                        <label class="product-check"><input type="checkbox" name="product" value="Копчені ковбаси">Копчені ковбаси</label>
+                        <label class="product-check"><input type="checkbox" name="product" value="Копчена підчеревина">Підчеревина</label>
+                        <label class="product-check"><input type="checkbox" name="product" value="Шпондер копчений">Шпондер</label>
+                        <label class="product-check"><input type="checkbox" name="product" value="Шия / полядвиця / шинка копчена">Шия / полядвиця / шинка</label>
+                        <label class="product-check"><input type="checkbox" name="product" value="Копчені рульки" data-price="400">Копчені рульки</label>
+                    </div>
+
+                    <div class="form-row">
+                        <div>
+                            <label for="f-name">Ваше ім'я</label>
+                            <input id="f-name" name="name" type="text" placeholder="Як до вас звертатись"
+                                   autocomplete="name" required>
+                        </div>
+                        <div>
+                            <label for="f-phone">Телефон</label>
+                            <input id="f-phone" name="phone" type="tel" placeholder="+380 97 123 45 67"
+                                   inputmode="tel" autocomplete="tel" required>
+                        </div>
+                    </div>
+
+                    <label>Доставка</label>
+                    <div class="product-picker" id="delivery-picker" role="radiogroup" aria-label="Спосіб доставки">
+                        <label class="product-check"><input type="radio" name="delivery" value="np" checked>📦 Нова Пошта</label>
+                        <label class="product-check"><input type="radio" name="delivery" value="pickup">🏠 Самовивіз з Гошева</label>
+                    </div>
+
+                    <div id="np-fields" class="form-row">
+                        <div>
+                            <label for="f-city">Місто / населений пункт</label>
+                            <input id="f-city" name="city" type="text" placeholder="Наприклад: Львів"
+                                   autocomplete="address-level2">
+                        </div>
+                        <div>
+                            <label for="f-branch">Відділення / поштомат НП</label>
+                            <input id="f-branch" name="branch" type="text" placeholder="Наприклад: №5 або поштомат №3"
+                                   inputmode="numeric">
+                        </div>
+                    </div>
+
+                    <label for="f-note">Коментар — кількість кг, побажання (опційно)</label>
+                    <textarea id="f-note" name="note" rows="3" placeholder="Наприклад: реберця 2 кг, підчеревина 1 кг, передзвоніть після 18:00"></textarea>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn">Надіслати замовлення</button>
+                        <a href="tel:+380979318260" class="btn btn-ghost">📞 Подзвонити</a>
+                    </div>
+                    <p class="form-note">Повідомлення відкриється у Viber / WhatsApp на наш номер. Також можна написати у <a id="tg-link" href="https://t.me/+380979318260" target="_blank" rel="noopener">Telegram</a>.</p>
+                </form>
+            </div>
         </div>
     </section>
 
-    <!-- ДОСТАВКА -->
-    <section class="grid-section container">
-        <h2>Доставка та оплата</h2>
-        <div class="accent-line"></div>
-        <div class="delivery-grid">
-            <div class="card">
-                <span class="icon-small">📍</span>
-                <h3>Самовивіз з Гошева</h3>
-                <p>Завітайте до коптильні — покажемо процес та продегустуємо свіжачок!</p>
-            </div>
+    <!-- TIKTOK -->
+    <section class="tiktok-block">
+        <div class="container">
+            <span class="icon-small" aria-hidden="true">🎬</span>
+            <h2 class="reveal">Дивіться наш TikTok</h2>
+            <p style="margin-bottom: 20px; color: var(--text-muted);">Справжній процес, закулісся коптильні, рецепти та карпатський настрій</p>
+            <a href="https://www.tiktok.com/@smokerdum" target="_blank" rel="noopener" class="tiktok-btn">@smokerdum у TikTok →</a>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer id="footer">
+    <footer id="contacts">
         <div class="container">
-            <h2>Контакти</h2>
-            <div class="accent-line"></div>
+            <h2 class="reveal">Контакти</h2>
+            <div class="accent-line reveal"></div>
+            <div class="vizytka-wrap">
+                <img src="vizytka.jpg" alt="Візитка «Дим і Гори» — смаження м'яса, смак народжений у димі" class="vizytka-card" loading="lazy">
+            </div>
             <div class="footer-grid">
-                <div class="footer-info">
+                <div class="footer-col">
+                    <h3>Телефон</h3>
                     <a href="tel:+380979318260" class="footer-phone">+380 97 931 82 60</a>
-                    <p class="footer-address">📍 Село Гошів, Івано-Франківщина</p>
-                    <p class="tiktok-link">🔥 <a href="#" style="color:var(--accent)">Відео від @smokerdum</a></p>
+                    <p>Приймаємо замовлення щодня з 9:00 до 20:00</p>
                 </div>
-                <div class="form">
-                    <input type="text" placeholder="Ваше ім'я">
-                    <input type="tel" placeholder="Телефон">
-                    <textarea rows="3" placeholder="Що замовляєте?"></textarea>
-                    <button class="btn">Надіслати</button>
+                <div class="footer-col">
+                    <h3>Адреса</h3>
+                    <p><a href="https://www.google.com/maps/search/?api=1&amp;query=%D0%93%D0%BE%D1%88%D1%96%D0%B2+%D0%86%D0%B2%D0%B0%D0%BD%D0%BE-%D0%A4%D1%80%D0%B0%D0%BD%D0%BA%D1%96%D0%B2%D1%81%D1%8C%D0%BA%D0%B0+%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C" target="_blank" rel="noopener">📍 с. Гошів, Івано-Франківська обл.</a></p>
+                    <p>Самовивіз з коптильні — за попередньою домовленістю</p>
+                    <p style="margin-top:8px;"><a href="https://www.google.com/maps/search/?api=1&amp;query=%D0%93%D0%BE%D1%88%D1%96%D0%B2+%D0%86%D0%B2%D0%B0%D0%BD%D0%BE-%D0%A4%D1%80%D0%B0%D0%BD%D0%BA%D1%96%D0%B2%D1%81%D1%8C%D0%BA%D0%B0+%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C" target="_blank" rel="noopener" style="color:var(--accent);">Прокласти маршрут →</a></p>
+                </div>
+                <div class="footer-col">
+                    <h3>Слідкуйте</h3>
+                    <div class="social-row">
+                        <a href="https://www.tiktok.com/@smokerdum" target="_blank" rel="noopener" class="social-btn">🎬 TikTok</a>
+                        <a href="viber://chat?number=%2B380979318260" class="social-btn">💬 Viber</a>
+                        <a href="https://wa.me/380979318260" target="_blank" rel="noopener" class="social-btn">🟢 WhatsApp</a>
+                    </div>
                 </div>
             </div>
-            <div class="copyright">© 2024 Дим і Гори. Всі права захищені.</div>
+            <div class="copyright">© <span id="year"></span> Дим і Гори. Натуральне копчення з Прикарпаття.</div>
         </div>
     </footer>
 
+    <!-- Sticky mobile CTA -->
+    <div class="mobile-cta" aria-hidden="false">
+        <a href="tel:+380979318260" class="m-call">📞 Подзвонити</a>
+        <a href="#order" class="m-order">🛒 Замовити</a>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script>
+        // Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Checkbox visual state
+        document.querySelectorAll('.product-check input').forEach(cb => {
+            const label = cb.closest('.product-check');
+            const sync = () => label.classList.toggle('checked', cb.checked);
+            cb.addEventListener('change', sync);
+            sync();
+        });
+
+        // Click product card to pre-select in order form
+        document.querySelectorAll('.card[data-product]').forEach(card => {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', (e) => {
+                if (e.target.closest('a,button')) return;
+                const product = card.getAttribute('data-product');
+                document.querySelectorAll('.product-check input[name="product"]').forEach(cb => {
+                    if (cb.value === product) {
+                        cb.checked = true;
+                        cb.dispatchEvent(new Event('change'));
+                    }
+                });
+                document.getElementById('order').scrollIntoView({behavior:'smooth'});
+            });
+        });
+
+        // Thumbnail gallery: click thumb → swap main image src
+        document.querySelectorAll('[data-gallery]').forEach(card => {
+            const main = card.querySelector('.product-img-main');
+            const thumbs = card.querySelectorAll('.thumb');
+            thumbs.forEach(t => {
+                t.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const src = t.getAttribute('data-src');
+                    if (main && src) main.src = src;
+                    thumbs.forEach(x => x.classList.remove('is-active'));
+                    t.classList.add('is-active');
+                });
+            });
+        });
+
+        // Variant card: toggle sub-options
+        document.querySelectorAll('.variant-toggle').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const expanded = btn.getAttribute('aria-expanded') === 'true';
+                const targetId = btn.getAttribute('aria-controls');
+                const opts = document.getElementById(targetId);
+                btn.setAttribute('aria-expanded', String(!expanded));
+                if (opts) opts.hidden = expanded;
+            });
+        });
+
+        // Variant sub-option click → check matching checkbox + scroll to form
+        document.querySelectorAll('.variant-opt').forEach(opt => {
+            opt.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const product = opt.getAttribute('data-product');
+                document.querySelectorAll('.product-check input[name="product"]').forEach(cb => {
+                    if (cb.value === product) {
+                        cb.checked = true;
+                        cb.dispatchEvent(new Event('change'));
+                    }
+                });
+                opt.classList.add('added');
+                setTimeout(() => opt.classList.remove('added'), 1500);
+                document.getElementById('order').scrollIntoView({behavior:'smooth'});
+            });
+        });
+
+        // Toast helper
+        const toastEl = document.getElementById('toast');
+        let toastTimer;
+        function showToast(msg) {
+            toastEl.textContent = msg;
+            toastEl.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => toastEl.classList.remove('show'), 3500);
+        }
+
+        // Toggle Nova Poshta city/branch fields based on delivery choice
+        (function() {
+            const npFields = document.getElementById('np-fields');
+            const cityInput = document.getElementById('f-city');
+            const branchInput = document.getElementById('f-branch');
+            function applyDelivery() {
+                const val = (document.querySelector('input[name="delivery"]:checked') || {}).value;
+                const isNp = val === 'np';
+                npFields.style.display = isNp ? '' : 'none';
+                cityInput.required = isNp;
+                branchInput.required = isNp;
+            }
+            document.querySelectorAll('input[name="delivery"]').forEach(r => r.addEventListener('change', applyDelivery));
+            applyDelivery();
+        })();
+
+        // Order form submit -> open WhatsApp/Viber prefilled
+        const PHONE_INTL = '380979318260';
+        document.getElementById('order-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('f-name').value.trim();
+            const phone = document.getElementById('f-phone').value.trim();
+            const note = document.getElementById('f-note').value.trim();
+            const city = document.getElementById('f-city').value.trim();
+            const branch = document.getElementById('f-branch').value.trim();
+            const delivery = (document.querySelector('input[name="delivery"]:checked') || {}).value || 'np';
+            const products = Array.from(document.querySelectorAll('.product-check input[name="product"]:checked')).map(cb => cb.value);
+
+            if (!name) { showToast("Вкажіть, будь ласка, ваше ім'я"); return; }
+            if (!phone) { showToast('Вкажіть, будь ласка, номер телефону'); return; }
+            if (products.length === 0) { showToast('Оберіть хоча б один товар'); return; }
+            if (delivery === 'np' && !city) { showToast('Вкажіть місто для Нової Пошти'); return; }
+            if (delivery === 'np' && !branch) { showToast('Вкажіть відділення / поштомат НП'); return; }
+
+            const deliveryText = delivery === 'np'
+                ? 'Нова Пошта — ' + city + ', відділення ' + branch
+                : 'Самовивіз з Гошева';
+
+            const lines = [
+                'Нове замовлення з сайту «Дим і Гори»',
+                '',
+                'Імʼя: ' + name,
+                'Телефон: ' + phone,
+                'Продукція: ' + products.join(', '),
+                'Доставка: ' + deliveryText,
+            ];
+            if (note) { lines.push('Коментар: ' + note); }
+            const msg = lines.join('\n');
+
+            // Primary: WhatsApp (works on desktop and mobile)
+            const waUrl = 'https://wa.me/' + PHONE_INTL + '?text=' + encodeURIComponent(msg);
+            window.open(waUrl, '_blank', 'noopener');
+            showToast('Замовлення готове до відправки у WhatsApp. Перевірте нове вікно.');
+        });
+
+        // ===== SCROLL REVEAL (IntersectionObserver) =====
+        (function() {
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const targets = document.querySelectorAll('.reveal');
+            if (reduce || !('IntersectionObserver' in window)) {
+                targets.forEach(el => el.classList.add('is-visible'));
+                return;
+            }
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('is-visible');
+                        io.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
+            targets.forEach(el => io.observe(el));
+        })();
+
+        // ===== Lightbox: click any product image to zoom =====
+        (function() {
+            const lb = document.getElementById('lightbox');
+            const lbImg = lb.querySelector('img');
+            const lbClose = lb.querySelector('.lightbox-close');
+            function open(src, alt) {
+                lbImg.src = src;
+                lbImg.alt = alt || '';
+                lb.classList.add('is-open');
+                document.body.style.overflow = 'hidden';
+            }
+            function close() {
+                lb.classList.remove('is-open');
+                document.body.style.overflow = '';
+                lbImg.src = '';
+            }
+            document.addEventListener('click', (e) => {
+                const img = e.target.closest('.product-img');
+                if (img) {
+                    e.preventDefault();
+                    open(img.src, img.alt);
+                }
+            });
+            lb.addEventListener('click', (e) => {
+                if (e.target === lb || e.target === lbImg || e.target === lbClose) close();
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && lb.classList.contains('is-open')) close();
+            });
+        })();
+
+        // ===== Hide mobile sticky CTA when near the order form =====
+        (function() {
+            const bar = document.querySelector('.mobile-cta');
+            const order = document.getElementById('order');
+            if (!bar || !order) return;
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(e => { bar.style.display = e.isIntersecting ? 'none' : ''; });
+            }, { rootMargin: '-20% 0px -20% 0px' });
+            io.observe(order);
+        })();
+    </script>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Перегляд фото">
+        <button type="button" class="lightbox-close" aria-label="Закрити">×</button>
+        <img src="" alt="">
+    </div>
 </body>
 </html>
-```
-```
