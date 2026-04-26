@@ -361,8 +361,23 @@
             background: rgba(35, 25, 19, 0.7);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 28px 20px;
             text-align: center;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .why-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 2px solid var(--accent);
+        }
+        .why-body {
+            padding: 24px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
         .why-item h3 { font-size: 1.15rem; margin-bottom: 8px; }
         .why-item p { color: var(--text-muted); font-size: 0.92rem; }
@@ -940,10 +955,22 @@
             <h2 class="reveal">Чому обирають нас</h2>
             <div class="accent-line reveal"></div>
             <div class="why-us-grid">
-                <div class="why-item"><span class="icon-small" aria-hidden="true">🌲</span><h3>Натуральні дрова</h3><p>Бук, яблуня, вишня</p></div>
-                <div class="why-item"><span class="icon-small" aria-hidden="true">🛡️</span><h3>Без хімії</h3><p>Тільки м'ясо, сіль та спеції</p></div>
-                <div class="why-item"><span class="icon-small" aria-hidden="true">🚚</span><h3>Швидка доставка</h3><p>По всій Україні Новою поштою</p></div>
-                <div class="why-item"><span class="icon-small" aria-hidden="true">🍳</span><h3>Свіже щодня</h3><p>Коптимо маленькими партіями</p></div>
+                <div class="why-item">
+                    <img src="why-wood.jpg" alt="Дрова бука, яблуні та вишні" class="why-img" loading="lazy">
+                    <div class="why-body"><h3>Натуральні дрова</h3><p>Бук, яблуня, вишня</p></div>
+                </div>
+                <div class="why-item">
+                    <img src="why-natural.jpg" alt="Натуральні спеції, часник та зелень" class="why-img" loading="lazy">
+                    <div class="why-body"><h3>Без хімії</h3><p>Тільки м'ясо, сіль та спеції</p></div>
+                </div>
+                <div class="why-item">
+                    <img src="why-delivery.jpg" alt="Упаковка замовлення для відправлення" class="why-img" loading="lazy">
+                    <div class="why-body"><h3>Швидка доставка</h3><p>По всій Україні Новою поштою</p></div>
+                </div>
+                <div class="why-item">
+                    <img src="why-fresh.jpg" alt="Свіжо закопчене м'ясо нарізане на дошці" class="why-img" loading="lazy">
+                    <div class="why-body"><h3>Свіже щодня</h3><p>Коптимо маленькими партіями</p></div>
+                </div>
             </div>
         </div>
     </section>
