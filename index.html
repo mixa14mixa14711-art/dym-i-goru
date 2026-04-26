@@ -82,8 +82,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 20px;
+            gap: 16px;
+            min-width: 0;
         }
+        .nav-links { min-width: 0; flex-wrap: nowrap; }
         .nav-brand {
             font-family: var(--font-serif);
             font-weight: 700;
@@ -153,13 +155,15 @@
             .nav-phone { font-size: 1.2rem; padding: 9px 16px; }
         }
         @media (max-width: 760px) {
+            .nav-inner { padding: 10px 14px; gap: 10px; }
+            .nav-links { gap: 10px; }
             .nav-links a:not(.nav-phone):not(.nav-tiktok) { display: none; }
-            .nav-tiktok { padding: 5px 10px; font-size: 0.85rem; }
-            .nav-phone { font-size: 1.05rem; padding: 8px 14px; gap: 6px; }
+            .nav-tiktok { padding: 5px 8px; font-size: 0.85rem; }
+            .nav-tiktok span { display: none; }
+            .nav-phone { font-size: 1rem; padding: 8px 14px; gap: 6px; letter-spacing: 0; }
         }
         @media (max-width: 480px) {
-            .nav-tiktok span { display: none; }
-            .nav-tiktok { padding: 6px 8px; }
+            .nav-brand { letter-spacing: 1px; font-size: 1rem; }
             .nav-phone .nav-phone-text { display: none; }
             .nav-phone { padding: 10px 12px; }
             .nav-phone svg { width: 22px; height: 22px; }
