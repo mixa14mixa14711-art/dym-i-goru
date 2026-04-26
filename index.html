@@ -488,6 +488,34 @@
         }
         .form-note a { color: var(--accent); text-decoration: none; }
 
+        /* THUMBNAIL GALLERY */
+        .thumb-row {
+            display: flex;
+            gap: 8px;
+            padding: 10px;
+            background: rgba(0,0,0,0.25);
+            border-bottom: 1px solid var(--border);
+        }
+        .thumb {
+            width: 56px;
+            height: 56px;
+            padding: 0;
+            border: 2px solid transparent;
+            border-radius: 6px;
+            background: transparent;
+            cursor: pointer;
+            overflow: hidden;
+            transition: border-color .2s, transform .2s;
+        }
+        .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .thumb:hover { transform: translateY(-1px); border-color: rgba(214, 144, 35, 0.5); }
+        .thumb.is-active { border-color: var(--accent); }
+
         /* PRODUCT VARIANT SUB-OPTIONS */
         .variant-toggle {
             margin-top: 14px;
@@ -941,8 +969,16 @@
                     </div>
                 </article>
 
-                <article class="card reveal delay-2 card-variants" data-variants-card>
-                    <img src="ryba.jpg" alt="Копчена риба золотистого кольору" class="product-img" loading="lazy">
+                <article class="card reveal delay-2 card-variants" data-variants-card data-gallery>
+                    <img src="ryba.jpg" alt="Копчена риба золотистого кольору" class="product-img product-img-main" loading="lazy">
+                    <div class="thumb-row">
+                        <button type="button" class="thumb is-active" data-src="ryba.jpg" aria-label="Фото 1">
+                            <img src="ryba.jpg" alt="" loading="lazy">
+                        </button>
+                        <button type="button" class="thumb" data-src="forel.jpg" aria-label="Фото 2 — форель">
+                            <img src="forel.jpg" alt="" loading="lazy">
+                        </button>
+                    </div>
                     <div class="card-body">
                         <h3>Риба копчена</h3>
                         <p>Делікатне філе з чистим смаком і легкою солоністю. Оберіть вид риби нижче.</p>
@@ -1264,6 +1300,21 @@
                     }
                 });
                 document.getElementById('order').scrollIntoView({behavior:'smooth'});
+            });
+        });
+
+        // Thumbnail gallery: click thumb → swap main image src
+        document.querySelectorAll('[data-gallery]').forEach(card => {
+            const main = card.querySelector('.product-img-main');
+            const thumbs = card.querySelectorAll('.thumb');
+            thumbs.forEach(t => {
+                t.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const src = t.getAttribute('data-src');
+                    if (main && src) main.src = src;
+                    thumbs.forEach(x => x.classList.remove('is-active'));
+                    t.classList.add('is-active');
+                });
             });
         });
 
