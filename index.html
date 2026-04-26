@@ -985,12 +985,29 @@
                     </div>
                 </article>
 
-                <article class="card reveal delay-2" data-product="Копчена підчеревина" data-price="600">
+                <article class="card reveal delay-2 card-variants" data-variants-card>
                     <img src="pidcherevyna.jpg" alt="Копчена підчеревина з пряною скоринкою" class="product-img" loading="lazy">
                     <div class="card-body">
                         <h3>Копчена підчеревина</h3>
                         <p>М'яка текстура з виразним димним ароматом і спеціями. Відмінний вибір до свята чи щоденного столу.</p>
-                        <span class="price">600 грн/кг</span>
+                        <span class="price">від 400 грн/кг</span>
+                        <button type="button" class="variant-toggle" aria-expanded="false" aria-controls="belly-options">
+                            Обрати тип <span class="variant-caret" aria-hidden="true">▾</span>
+                        </button>
+                        <div class="variant-options" id="belly-options" hidden>
+                            <button type="button" class="variant-opt" data-product="Копчена підчеревина" data-price="600">
+                                <span class="variant-name">Підчеревина</span>
+                                <span class="variant-price">600 грн/кг</span>
+                            </button>
+                            <button type="button" class="variant-opt" data-product="Шпондер копчений" data-price="400">
+                                <span class="variant-name">Шпондер</span>
+                                <span class="variant-price">400 грн/кг</span>
+                            </button>
+                            <button type="button" class="variant-opt" data-product="Шия / полядвиця / шинка копчена" data-price="600">
+                                <span class="variant-name">Шия, полядвиця, шинка</span>
+                                <span class="variant-price">600 грн/кг</span>
+                            </button>
+                        </div>
                     </div>
                 </article>
             </div>
@@ -1121,7 +1138,9 @@
                         <label class="product-check"><input type="checkbox" name="product" value="Риба форель біла копчена">Риба форель біла</label>
                         <label class="product-check"><input type="checkbox" name="product" value="Сало копчене">Сало копчене</label>
                         <label class="product-check"><input type="checkbox" name="product" value="Копчені ковбаси">Копчені ковбаси</label>
-                        <label class="product-check"><input type="checkbox" name="product" value="Копчена підчеревина">Копчена підчеревина</label>
+                        <label class="product-check"><input type="checkbox" name="product" value="Копчена підчеревина">Підчеревина</label>
+                        <label class="product-check"><input type="checkbox" name="product" value="Шпондер копчений">Шпондер</label>
+                        <label class="product-check"><input type="checkbox" name="product" value="Шия / полядвиця / шинка копчена">Шия / полядвиця / шинка</label>
                     </div>
 
                     <div class="form-row">
