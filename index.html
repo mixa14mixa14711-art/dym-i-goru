@@ -488,6 +488,52 @@
         }
         .form-note a { color: var(--accent); text-decoration: none; }
 
+        /* FISH SUB-OPTIONS */
+        .fish-toggle {
+            margin-top: 14px;
+            padding: 10px 18px;
+            background: transparent;
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            color: var(--accent);
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: background .2s, color .2s;
+        }
+        .fish-toggle:hover { background: var(--accent); color: #1a1411; }
+        .fish-toggle .fish-caret { display: inline-block; transition: transform .25s; margin-left: 4px; }
+        .fish-toggle[aria-expanded="true"] .fish-caret { transform: rotate(180deg); }
+        .fish-options {
+            margin-top: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            text-align: left;
+        }
+        .fish-options[hidden] { display: none; }
+        .fish-opt {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 14px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: border-color .2s, background .2s, transform .2s;
+            width: 100%;
+        }
+        .fish-opt:hover { border-color: var(--accent); background: rgba(214, 144, 35, 0.08); }
+        .fish-opt.added { border-color: var(--accent); background: rgba(214, 144, 35, 0.14); }
+        .fish-opt-name { font-weight: 600; }
+        .fish-opt-price { color: var(--accent); font-weight: 700; white-space: nowrap; }
+
         /* TIKTOK */
         .tiktok-block {
             text-align: center;
@@ -882,12 +928,29 @@
                     </div>
                 </article>
 
-                <article class="card reveal delay-2" data-product="Риба копчена" data-price="600">
+                <article class="card reveal delay-2 card-fish" data-fish-card>
                     <img src="ryba.jpg" alt="Копчена риба золотистого кольору" class="product-img" loading="lazy">
                     <div class="card-body">
                         <h3>Риба копчена</h3>
-                        <p>Делікатне філе з чистим смаком і легкою солоністю. Сом або форель золотистого кольору з ароматом вишні.</p>
-                        <span class="price">600 грн/кг</span>
+                        <p>Делікатне філе з чистим смаком і легкою солоністю. Оберіть вид риби нижче.</p>
+                        <span class="price">від 600 грн/кг</span>
+                        <button type="button" class="fish-toggle" aria-expanded="false" aria-controls="fish-options">
+                            Обрати вид <span class="fish-caret" aria-hidden="true">▾</span>
+                        </button>
+                        <div class="fish-options" id="fish-options" hidden>
+                            <button type="button" class="fish-opt" data-product="Риба скумбрія копчена" data-price="600">
+                                <span class="fish-opt-name">Скумбрія</span>
+                                <span class="fish-opt-price">600 грн/кг</span>
+                            </button>
+                            <button type="button" class="fish-opt" data-product="Риба форель червона копчена" data-price="900">
+                                <span class="fish-opt-name">Форель червона</span>
+                                <span class="fish-opt-price">900 грн/кг</span>
+                            </button>
+                            <button type="button" class="fish-opt" data-product="Риба форель біла копчена" data-price="800">
+                                <span class="fish-opt-name">Форель біла</span>
+                                <span class="fish-opt-price">800 грн/кг</span>
+                            </button>
+                        </div>
                     </div>
                 </article>
 
@@ -1039,7 +1102,9 @@
                     <div class="product-picker" id="product-picker">
                         <label class="product-check"><input type="checkbox" name="product" value="Реберця копчені">Реберця копчені</label>
                         <label class="product-check"><input type="checkbox" name="product" value="Перепілки / курята копчені">Перепілки / курята</label>
-                        <label class="product-check"><input type="checkbox" name="product" value="Риба копчена">Риба копчена</label>
+                        <label class="product-check"><input type="checkbox" name="product" value="Риба скумбрія копчена">Риба скумбрія</label>
+                        <label class="product-check"><input type="checkbox" name="product" value="Риба форель червона копчена">Риба форель червона</label>
+                        <label class="product-check"><input type="checkbox" name="product" value="Риба форель біла копчена">Риба форель біла</label>
                         <label class="product-check"><input type="checkbox" name="product" value="Сало копчене">Сало копчене</label>
                         <label class="product-check"><input type="checkbox" name="product" value="Копчені ковбаси">Копчені ковбаси</label>
                         <label class="product-check"><input type="checkbox" name="product" value="Копчена підчеревина">Копчена підчеревина</label>
@@ -1165,6 +1230,35 @@
                         cb.dispatchEvent(new Event('change'));
                     }
                 });
+                document.getElementById('order').scrollIntoView({behavior:'smooth'});
+            });
+        });
+
+        // Fish card: toggle sub-options
+        document.querySelectorAll('.fish-toggle').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const expanded = btn.getAttribute('aria-expanded') === 'true';
+                const targetId = btn.getAttribute('aria-controls');
+                const opts = document.getElementById(targetId);
+                btn.setAttribute('aria-expanded', String(!expanded));
+                if (opts) opts.hidden = expanded;
+            });
+        });
+
+        // Fish sub-option click → check matching checkbox + scroll to form
+        document.querySelectorAll('.fish-opt').forEach(opt => {
+            opt.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const product = opt.getAttribute('data-product');
+                document.querySelectorAll('.product-check input[name="product"]').forEach(cb => {
+                    if (cb.value === product) {
+                        cb.checked = true;
+                        cb.dispatchEvent(new Event('change'));
+                    }
+                });
+                opt.classList.add('added');
+                setTimeout(() => opt.classList.remove('added'), 1500);
                 document.getElementById('order').scrollIntoView({behavior:'smooth'});
             });
         });
